@@ -197,18 +197,6 @@ export class StationAudio {
     src.connect(bp).connect(g).connect(this.master);
     src.start(t, Math.random());
     src.stop(t + 0.6);
-    // colpo sordo a fine corsa
-    const o = ac.createOscillator();
-    o.frequency.setValueAtTime(95, t + 0.38);
-    o.frequency.exponentialRampToValueAtTime(45, t + 0.55);
-    const og = ac.createGain();
-    og.gain.setValueAtTime(0, t + 0.38);
-    og.gain.linearRampToValueAtTime(0.3 * v, t + 0.38 + F);
-    og.gain.exponentialRampToValueAtTime(0.001, t + 0.6);
-    og.gain.linearRampToValueAtTime(0, t + 0.6 + F);
-    o.connect(og).connect(this.master);
-    o.start(t);
-    o.stop(t + 0.65);
   }
 
   denied(dist) {
