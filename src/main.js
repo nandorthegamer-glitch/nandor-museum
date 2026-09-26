@@ -53,7 +53,6 @@ const interact = new Interact(player, station.interactables, panels);
 
 const audio = new StationAudio();
 Door.events.onMove = (d, dist, opening) => audio.door(dist, opening);
-Door.events.onDenied = (d, dist) => audio.denied(dist);
 
 // cabinati: al ritorno dal gioco si mostra il menu (serve un clic per ricatturare il mouse)
 const game = new GameCabinet({

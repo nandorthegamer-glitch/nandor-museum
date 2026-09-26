@@ -1118,3 +1118,4 @@
      strade grigie, verde, piazza, chiese coi tetti rossi)
    - pannello con E (5 paragrafi, crediti dei dati) e
      cabinato ANGRI PS1 / COMING SOON: provati
+- Fondo spina: transenna IN COSTRUZIONE bassa (zs+3.2) + robot umanoide DIETRO la transenna, manico del mocio che passa per le due mani (buildWorks in station.js). Bip delle porte chiuse tolto (utente: fortissimo). 2026-09-26.
