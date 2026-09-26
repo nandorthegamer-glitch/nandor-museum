@@ -12,6 +12,13 @@
     #overlay { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center;
       justify-content: center; gap: 18px; background: rgba(3, 6, 10, 0.82); text-align: center; padding: 16px; }
     #overlay.hidden { display: none; }
+    #overlay.loading .row { display: none; }
+    #loading { display: none; flex-direction: column; align-items: center; gap: 10px; color: var(--dim);
+      letter-spacing: 0.2em; font-size: 13px; }
+    #overlay.loading #loading { display: flex; }
+    #loading .bar { width: min(320px, 70vw); height: 6px; border: 1px solid #3a5364; padding: 1px; }
+    #loading .bar i { display: block; height: 100%; width: 0; background: #3dff8a;
+      box-shadow: 0 0 8px #3dff8a; transition: width 0.2s; }
     #overlay h1 { margin: 0; font-size: clamp(22px, 5vw, 44px); letter-spacing: 0.2em; }
     #overlay p { margin: 0; color: var(--dim); }
     .row { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
@@ -64,8 +71,9 @@
   <div id="prompt"></div>
   <div id="subs"></div>
   <div id="panel"></div>
-  <div id="overlay">
+  <div id="overlay" class="loading">
     <h1>NANDOR ORBITAL MUSEUM</h1>
+    <div id="loading"><div class="bar"><i></i></div><span>CARICAMENTO · LOADING</span></div>
     <p id="hint"></p>
     <div class="row">
       <button data-lang="it">ITALIANO</button>

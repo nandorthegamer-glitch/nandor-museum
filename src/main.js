@@ -11,6 +11,24 @@ import { PANELS } from './panels.js';
 import { GameCabinet } from './game.js';
 import { mediaUrl } from './media.js';
 
+// --- caricamento: conta le richieste di rete partite durante l'avvio (pacchetti dei
+// modelli, dati, texture); le bandiere compaiono solo a caricamento e shader pronti ---
+const loadingBar = document.querySelector('#loading .bar i');
+const boot = { total: 0, done: 0, open: true };
+const bootFetch = window.fetch;
+window.fetch = (...args) => {
+  const p = bootFetch(...args);
+  if (!boot.open) return p;
+  boot.total++;
+  const settle = () => { boot.done++; loadingBar.style.width = Math.round((boot.done / boot.total) * 90) + '%'; };
+  p.then((r) => (r.ok ? r.clone().arrayBuffer() : null)).then(settle, settle); // finito = corpo scaricato
+  return p;
+};
+// texture caricate con TextureLoader (quadri, immagini): il manager dice quando ha finito
+let texLoading = false;
+THREE.DefaultLoadingManager.onStart = () => { texLoading = true; };
+THREE.DefaultLoadingManager.onLoad = () => { texLoading = false; };
+
 // Ogni cartella rooms/<id>/room.json diventa una stanza: basta aggiungerla
 const rooms = {};
 for (const r of Object.values(import.meta.glob('../rooms/*/room.json', { eager: true, import: 'default' }))) {
@@ -151,6 +169,39 @@ renderer.setAnimationLoop(() => {
   game.update(dt);
   if (!game.playing) psx.render(scene, camera); // mentre si gioca il museo e' coperto
 });
+
+// Fine del caricamento: quando la rete tace, si compilano TUTTI gli shader (anche delle
+// stanze fuori vista e dei cartelli sul layer CRISP) e si caricano le texture sulla GPU,
+// cosi' i primi secondi di gioco non scattano. Poi compaiono le bandiere.
+async function finishBoot() {
+  const t0 = performance.now();
+  let quiet = 0, last = -1;
+  while (performance.now() - t0 < 20000) { // al massimo 20 s, poi si entra comunque
+    await new Promise((r) => setTimeout(r, 100));
+    const idle = boot.done >= boot.total && !texLoading;
+    quiet = idle && boot.done === last ? quiet + 1 : 0;
+    last = boot.done;
+    if (quiet >= 3) break; // 300 ms senza nuove richieste
+  }
+  boot.open = false;
+  loadingBar.style.width = '92%';
+  const all = camera.clone();
+  all.layers.enableAll();
+  try { await renderer.compileAsync(scene, all); } catch { renderer.compile(scene, all); }
+  const seen = new Set();
+  scene.traverse((o) => {
+    for (const m of [].concat(o.material || [])) {
+      for (const k of ['map', 'emissiveMap', 'alphaMap', 'normalMap']) {
+        const t = m[k];
+        if (t && !seen.has(t) && !t.isVideoTexture && t.image) { seen.add(t); renderer.initTexture(t); }
+      }
+    }
+  });
+  loadingBar.style.width = '100%';
+  await new Promise((r) => setTimeout(r, 250));
+  overlay.classList.remove('loading');
+}
+finishBoot();
 
 // per le prove dal browser
 window.__museum = { player, station, scene, camera, psx, audio, Door, interact, game };
