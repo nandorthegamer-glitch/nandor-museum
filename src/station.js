@@ -79,9 +79,15 @@ export function buildStation(stations, rooms, { onCreate = () => {}, getViewer }
   D.spineEnd(ctx, zs, SPINE, SPINE_H);
   buildWorks(ctx, zs);
 
-  // fondo della spina: finestrone sullo spazio (per ora un pannello scuro)
+  // fondo della spina: muro con l'insegna del futuro lounge bar, dietro al robot
   wall(ctx, 'x', zs, -SPINE, SPINE, SPINE_H);
-  box(ctx.group, -1.2, 1.2, 0.8, 2.4, zs + WALL_T / 2, zs + WALL_T / 2 + 0.02, ctx.mats.glow(0x0a1838));
+  sign(ctx, {
+    w: 2.2, h: 0.62, x: 0, y: 2.52, z: zs + WALL_T / 2 + 0.02, face: FACE.S,
+    draw: (g, W, H) => drawLines(g, W, H, [
+      { text: 'LOUNGE BAR', size: 0.42, bold: true, color: '#ff3bd4' },
+      { text: 'opening soon', size: 0.24, color: '#3dff8a' },
+    ], { bg: '#0e0a18', border: '#ff3bd4' }),
+  });
 
   buildMap(ctx, docks);
 
