@@ -10,6 +10,7 @@ import { Interact } from './interact.js';
 import { PANELS } from './panels.js';
 import { GameCabinet } from './game.js';
 import { mediaUrl } from './media.js';
+import { TouchControls, isTouch } from './touch.js';
 
 // --- caricamento: conta le richieste di rete partite durante l'avvio (pacchetti dei
 // modelli, dati, texture); le bandiere compaiono solo a caricamento e shader pronti ---
@@ -88,7 +89,10 @@ interact.onLinksClosed = () => {
 // --- schermata iniziale: le bandiere scelgono la lingua ed entrano ---
 const overlay = document.getElementById('overlay');
 const UI = {
-  hint: {
+  hint: isTouch ? {
+    it: 'Analogico sinistro per muoversi, destro per guardare, tocca lo schermo per interagire',
+    en: 'Left stick to move, right stick to look, tap the screen to interact',
+  } : {
     it: 'WASD per muoversi, mouse per guardare, Shift per correre, M audio, Esc per uscire',
     en: 'WASD to move, mouse to look, Shift to run, M audio, Esc to leave',
   },
@@ -121,11 +125,29 @@ for (const b of overlay.querySelectorAll('[data-lang]')) {
       const V = import.meta.env.BASE_URL + 'nandor/';
       audio.loadVoice({ it: V + 'voice-it.wav', en: V + 'voice-en.wav' }, { it: 0.45, en: 1.3 });
     }
+    if (isTouch) { enterTouch(); return; }
     Promise.resolve(renderer.domElement.requestPointerLock()).catch(() => {
       player.dragMode = true;
       overlay.classList.add('hidden');
     });
   });
+}
+// telefono: niente Pointer Lock, comandi a schermo; il pulsante II riporta al menu
+const touch = new TouchControls(player, {
+  onMenu: () => {
+    player.touchMode = false;
+    touch.show(false);
+    overlay.classList.remove('hidden');
+  },
+});
+function enterTouch() {
+  player.touchMode = true;
+  touch.show(true);
+  overlay.classList.add('hidden');
+  const de = document.documentElement;
+  if (!document.fullscreenElement && de.requestFullscreen) {
+    de.requestFullscreen({ navigationUI: 'hide' }).then(() => screen.orientation?.lock?.('landscape')).catch(() => {});
+  }
 }
 document.addEventListener('pointerlockchange', () => {
   if (game.active) return; // entrando nel cabinato il mouse si libera: niente menu
@@ -168,6 +190,7 @@ function greet(t) {
 const clock = new THREE.Clock();
 renderer.setAnimationLoop(() => {
   const dt = Math.min(clock.getDelta(), 0.05);
+  if (player.touchMode) touch.update(dt);
   const blockers = station.doors.filter((d) => d.blocking).map((d) => d.box);
   player.update(dt, blockers.length ? station.colliders.concat(blockers) : station.colliders);
   for (const d of station.doors) d.update(dt, player.x, player.z);
@@ -219,4 +242,4 @@ async function finishBoot() {
 finishBoot();
 
 // per le prove dal browser
-window.__museum = { player, station, scene, camera, psx, audio, Door, interact, game };
+window.__museum = { player, station, scene, camera, psx, audio, Door, interact, game, touch };

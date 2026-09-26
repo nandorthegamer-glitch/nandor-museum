@@ -3,10 +3,15 @@
 // leggibili, fuori dallo strato PS1). E o Esc lo chiudono.
 
 import { T, onLang } from './lang.js';
+import { isTouch } from './touch.js';
 
 const UI = {
   read: { it: '[E] Leggi', en: '[E] Read' },
   close: { it: 'E per chiudere', en: 'E to close' },
+  // da telefono: tocco al posto di E; i minigiochi solo da PC
+  readTouch: { it: 'Tocca per leggere', en: 'Tap to read' },
+  closeTouch: { it: 'Tocca per chiudere', en: 'Tap to close' },
+  pcOnly: { it: 'Minigioco disponibile solo da PC', en: 'Mini game available on PC only' },
 };
 
 export class Interact {
@@ -25,7 +30,7 @@ export class Interact {
       if (e.code !== 'KeyE' || e.repeat) return;
       if (this.openId) this.close();
       else if (this.target && this.player.locked) {
-        if (this.target.action) this.onAction?.(this.target); // es. giocare in un cabinato
+        if (this.target.action) { if (!isTouch) this.onAction?.(this.target); } // es. giocare in un cabinato
         else this.open(this.target.id);
       }
     });
@@ -34,6 +39,8 @@ export class Interact {
       if (!this.player.locked && this.openId && !this.panels[this.openId]?.links) this.close();
     });
     onLang(() => { if (this.openId) this.render(this.openId); });
+    // da telefono un tocco sul pannello lo chiude (non sui link, non scorrendo il testo)
+    if (isTouch) this.panel.addEventListener('click', (e) => { if (this.openId && !e.target.closest('a')) this.close(); });
   }
 
   update() {
@@ -52,8 +59,9 @@ export class Interact {
     if (best !== this.target) {
       this.target = best;
       this.prompt.textContent = !best ? ''
+        : best.action && isTouch ? T(UI.pcOnly)
         : best.label ? T(best.label)
-        : `${T(UI.read)}: ${T(this.panels[best.id]?.title)}`;
+        : `${T(isTouch ? UI.readTouch : UI.read)}: ${T(this.panels[best.id]?.title)}`;
       this.prompt.classList.toggle('on', !!best);
     }
   }
@@ -87,7 +95,7 @@ export class Interact {
         ${p.body.map((b) => b.href
           ? `<p class="link"><span>${esc(T(b))}</span><a href="${b.href}" target="_blank" rel="noopener">${esc(b.text)}</a></p>`
           : `<p>${esc(T(b))}</p>`).join('')}
-        <div class="close">${esc(T(UI.close))}</div>
+        <div class="close">${esc(T(isTouch ? UI.closeTouch : UI.close))}</div>
       </div>`;
   }
 }

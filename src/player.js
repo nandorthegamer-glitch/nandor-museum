@@ -18,6 +18,8 @@ export class Player {
     this.pitch = 0;
     this.keys = new Set();
     this.sens = 1;
+    this.touchMode = false; // telefono: comandi a schermo (touch.js)
+    this.stick = { x: 0, y: 0 }; // analogico sinistro, -1..1 (y giu' = indietro)
 
     addEventListener('keydown', (e) => this.keys.add(e.code));
     addEventListener('keyup', (e) => this.keys.delete(e.code));
@@ -37,7 +39,7 @@ export class Player {
   }
 
   get locked() {
-    return this.dragMode || document.pointerLockElement === this.dom;
+    return this.touchMode || this.dragMode || document.pointerLockElement === this.dom;
   }
 
   place(x, z, yaw) {
@@ -51,10 +53,17 @@ export class Player {
     if (this.cinematic) return;
     if (this.locked && !this.frozen) {
       const k = this.keys;
-      const f = (k.has('KeyW') || k.has('ArrowUp') ? 1 : 0) - (k.has('KeyS') || k.has('ArrowDown') ? 1 : 0);
-      const s = (k.has('KeyD') || k.has('ArrowRight') ? 1 : 0) - (k.has('KeyA') || k.has('ArrowLeft') ? 1 : 0);
+      let f = (k.has('KeyW') || k.has('ArrowUp') ? 1 : 0) - (k.has('KeyS') || k.has('ArrowDown') ? 1 : 0);
+      let s = (k.has('KeyD') || k.has('ArrowRight') ? 1 : 0) - (k.has('KeyA') || k.has('ArrowLeft') ? 1 : 0);
+      let speed = k.has('ShiftLeft') || k.has('ShiftRight') ? RUN : WALK;
+      const push = Math.min(1, Math.hypot(this.stick.x, this.stick.y));
+      if (!f && !s && push > 0) {
+        // analogico: la spinta decide la velocita', a fondo corsa si corre un po'
+        f = -this.stick.y;
+        s = this.stick.x;
+        speed = push > 0.95 ? WALK * 1.35 : WALK * push;
+      }
       if (f || s) {
-        const speed = k.has('ShiftLeft') || k.has('ShiftRight') ? RUN : WALK;
         const sin = Math.sin(this.yaw), cos = Math.cos(this.yaw);
         // avanti = (-sin, -cos), destra = (cos, -sin)
         let dx = -sin * f + cos * s;

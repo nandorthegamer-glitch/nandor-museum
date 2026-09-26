@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
   <title>Nandor Orbital Museum</title>
   <style>
     :root { --fg: #cfe3ee; --dim: #6d8494; --accent: #f0a040; --bg: #05080c; }
@@ -47,6 +47,20 @@
     #panel p.link span { color: #ff8ae6; min-width: 110px; }
     #panel a { color: #3dff8a; word-break: break-all; }
     #panel a:hover { color: #ff3bd4; }
+    /* comandi da telefono */
+    canvas { touch-action: none; }
+    #touch { position: fixed; inset: 0; display: none; touch-action: none; user-select: none; -webkit-user-select: none; }
+    #touch.on { display: block; }
+    #touch .stick { position: absolute; bottom: max(28px, env(safe-area-inset-bottom)); width: 128px; height: 128px;
+      border-radius: 50%; border: 2px solid rgba(61, 255, 138, 0.45); background: rgba(14, 10, 24, 0.35); }
+    #touch .stick.left { left: max(28px, env(safe-area-inset-left)); }
+    #touch .stick.right { right: max(28px, env(safe-area-inset-right)); border-color: rgba(255, 59, 212, 0.45); }
+    #touch .stick i { position: absolute; left: 50%; top: 50%; width: 54px; height: 54px; margin: -27px 0 0 -27px;
+      border-radius: 50%; background: rgba(61, 255, 138, 0.35); border: 2px solid #3dff8a; pointer-events: none; }
+    #touch .stick.right i { background: rgba(255, 59, 212, 0.3); border-color: #ff3bd4; }
+    #touch .menu { position: absolute; top: max(14px, env(safe-area-inset-top)); left: max(14px, env(safe-area-inset-left));
+      padding: 8px 14px; font-size: 18px; }
+    #prompt { max-width: 90vw; white-space: normal; }
     #panel .close { clear: both; text-align: right; color: #ff3bd4; font-size: 13px; letter-spacing: 0.1em; }
     @media (max-width: 560px) { #panel figure { float: none; width: 100%; margin-left: 0; } }
     #subs { position: fixed; left: 50%; bottom: 24%; transform: translateX(-50%); color: #3dff8a;
@@ -73,6 +87,7 @@
   <div id="cross"></div>
   <div id="prompt"></div>
   <div id="subs"></div>
+  <div id="touch"><button class="menu">II</button><div class="stick left"><i></i></div><div class="stick right"><i></i></div></div>
   <div id="panel"></div>
   <div id="overlay" class="loading">
     <h1>NANDOR ORBITAL MUSEUM</h1>

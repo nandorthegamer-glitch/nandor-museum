@@ -1120,3 +1120,4 @@
      cabinato ANGRI PS1 / COMING SOON: provati
 - Fondo spina: transenna IN COSTRUZIONE bassa (zs+3.2) + robot umanoide DIETRO la transenna, manico del mocio che passa per le due mani (buildWorks in station.js). Bip delle porte chiuse tolto (utente: fortissimo). 2026-09-26.
 - Easter egg: la statua di Vampaladin, fissata per 10 s, si gira lentamente verso il visitatore; fuori vista torna com'era (exhibit option "stare": secondi). 2026-09-26.
+- MOBILE (2026-09-26): comandi touch (src/touch.js): analogico sinistro = movimento, destro = sguardo, tocco breve altrove = E, pulsante II = menu; pannelli chiusi con un tocco; minigioco Vampaladin solo da PC (prompt 'Minigioco disponibile solo da PC'). Rilevamento: pointer: coarse.
