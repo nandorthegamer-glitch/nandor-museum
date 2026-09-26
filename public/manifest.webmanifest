@@ -1,0 +1,14 @@
+{
+  "name": "Nandor Orbital Museum",
+  "short_name": "Nandor Museum",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#05080c",
+  "theme_color": "#05080c",
+  "icons": [
+    { "src": "icon-180.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

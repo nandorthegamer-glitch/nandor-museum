@@ -14,6 +14,17 @@ export class TouchControls {
     this.move = this.stick(this.el.querySelector('.stick.left'));
     this.look = this.stick(this.el.querySelector('.stick.right'));
     this.el.querySelector('.menu').addEventListener('click', (e) => { e.stopPropagation(); onMenu(); });
+    // schermo intero: entra / esci (non c'e' dove il browser non lo permette, es. iPhone)
+    const fs = this.el.querySelector('.fs');
+    if (canFullscreen()) {
+      const label = () => { fs.textContent = fullscreenElement() ? 'ESCI ⤡' : 'SCHERMO ⤢'; };
+      fs.addEventListener('click', (e) => { e.stopPropagation(); toggleFullscreen(); });
+      document.addEventListener('fullscreenchange', label);
+      document.addEventListener('webkitfullscreenchange', label);
+      label();
+    } else fs.remove();
+    // Safari ignora user-scalable=no: blocca lo zoom a pizzico e il doppio tocco
+    if (isTouch) for (const ev of ['gesturestart', 'gesturechange', 'dblclick']) document.addEventListener(ev, (e) => e.preventDefault(), { passive: false });
 
     // tocco breve fuori dagli analogici: E (interagisci / chiudi)
     let tap = null;
@@ -75,6 +86,26 @@ export class TouchControls {
     p.pitch = Math.max(-1.45, Math.min(1.45, p.pitch));
   }
 }
+
+// --- schermo intero, anche col prefisso webkit (Safari su iPad) ---
+const fullscreenElement = () => document.fullscreenElement || document.webkitFullscreenElement;
+export const canFullscreen = () => !!(document.fullscreenEnabled || document.webkitFullscreenEnabled);
+export function enterFullscreen() {
+  if (!canFullscreen() || fullscreenElement()) return;
+  const de = document.documentElement;
+  const req = de.requestFullscreen?.bind(de) || de.webkitRequestFullscreen?.bind(de);
+  Promise.resolve(req?.({ navigationUI: 'hide' }))
+    .then(() => screen.orientation?.lock?.('landscape'))
+    .catch(() => {});
+}
+function toggleFullscreen() {
+  if (!fullscreenElement()) { enterFullscreen(); return; }
+  (document.exitFullscreen || document.webkitExitFullscreen)?.call(document);
+}
+// iPhone/iPad in Safari, non ancora aggiunto alla schermata Home
+export const iosBrowser = /iP(hone|od|ad)/.test(navigator.userAgent) ||
+  (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+export const standalone = matchMedia('(display-mode: standalone), (display-mode: fullscreen)').matches || navigator.standalone === true;
 
 export function pressE() {
   dispatchEvent(new KeyboardEvent('keydown', { code: 'KeyE', key: 'e' }));

@@ -10,7 +10,7 @@ import { Interact } from './interact.js';
 import { PANELS } from './panels.js';
 import { GameCabinet } from './game.js';
 import { mediaUrl } from './media.js';
-import { TouchControls, isTouch } from './touch.js';
+import { TouchControls, isTouch, enterFullscreen, canFullscreen, iosBrowser, standalone } from './touch.js';
 
 // --- caricamento: conta le richieste di rete partite durante l'avvio (pacchetti dei
 // modelli, dati, texture); le bandiere compaiono solo a caricamento e shader pronti ---
@@ -144,10 +144,18 @@ function enterTouch() {
   player.touchMode = true;
   touch.show(true);
   overlay.classList.add('hidden');
-  const de = document.documentElement;
-  if (!document.fullscreenElement && de.requestFullscreen) {
-    de.requestFullscreen({ navigationUI: 'hide' }).then(() => screen.orientation?.lock?.('landscape')).catch(() => {});
-  }
+  enterFullscreen();
+}
+// iPhone: Safari non concede lo schermo intero alle pagine; si ottiene aggiungendo il
+// museo alla schermata Home (si apre come un'app, senza barre)
+const IOS_HINT = {
+  it: 'Su iPhone: tocca Condividi ⬆ e poi "Aggiungi alla schermata Home", poi apri il museo da lì per giocare a schermo intero. Meglio in orizzontale.',
+  en: 'On iPhone: tap Share ⬆ then "Add to Home Screen", and open the museum from there to play full screen. Best in landscape.',
+};
+const iosHint = document.getElementById('ioshint');
+if (isTouch && iosBrowser && !standalone && !canFullscreen()) {
+  iosHint.classList.add('on');
+  onLang(() => { iosHint.textContent = T(IOS_HINT); });
 }
 document.addEventListener('pointerlockchange', () => {
   if (game.active) return; // entrando nel cabinato il mouse si libera: niente menu
