@@ -47,7 +47,10 @@
 
   "panels": {
     "styx": {
-      "title": { "it": "Styx Diner", "en": "Styx Diner" },
+      "title": {
+        "it": "Styx Diner",
+        "en": "Styx Diner"
+      },
       "body": [
         {
           "it": "Un gioco in prima persona ambientato in un diner anni '50 consumato dal tempo, sulle rive dello Stige. Metà simulatore di cucina, metà storia da esplorare, con un'atmosfera spettrale e surreale.",
@@ -64,8 +67,15 @@
         {
           "it": "Tutto è costruito da codice in Unity: il diner, i mobili, i personaggi e le loro animazioni, con la grafica di una PlayStation 1. Il set e i personaggi che vedi qui sono stati estratti direttamente dai file del progetto.",
           "en": "Everything is built by code in Unity: the diner, the furniture, the characters and their animations, drawn like a PlayStation 1 game. The set and characters you see here were pulled straight out of the project files."
+        },
+        {
+          "it": "Gioca su itch.io",
+          "en": "Play on itch.io",
+          "href": "https://nandor989.itch.io/styx-diner",
+          "text": "nandor989.itch.io/styx-diner"
         }
-      ]
+      ],
+      "links": true
     },
     "styx-vecchio": {
       "title": { "it": "Il Vecchio", "en": "The Old Man" },
