@@ -180,7 +180,8 @@ export class StationAudio {
     const ac = this.ctx;
     const v = this.near(dist);
     if (!ac || v <= 0) return;
-    const t = ac.currentTime;
+    const t = ac.currentTime + 0.01; // un attimo avanti: niente eventi gia' nel passato
+    const F = 0.005; // fade in / fade out di 5 ms contro i click
     const src = ac.createBufferSource();
     src.buffer = this.noise;
     const bp = ac.createBiquadFilter();
@@ -192,6 +193,7 @@ export class StationAudio {
     g.gain.setValueAtTime(0, t);
     g.gain.linearRampToValueAtTime(0.35 * v, t + 0.03);
     g.gain.exponentialRampToValueAtTime(0.001, t + 0.55);
+    g.gain.linearRampToValueAtTime(0, t + 0.55 + F);
     src.connect(bp).connect(g).connect(this.master);
     src.start(t, Math.random());
     src.stop(t + 0.6);
@@ -200,9 +202,10 @@ export class StationAudio {
     o.frequency.setValueAtTime(95, t + 0.38);
     o.frequency.exponentialRampToValueAtTime(45, t + 0.55);
     const og = ac.createGain();
-    og.gain.setValueAtTime(0, t);
-    og.gain.setValueAtTime(0.3 * v, t + 0.38);
+    og.gain.setValueAtTime(0, t + 0.38);
+    og.gain.linearRampToValueAtTime(0.3 * v, t + 0.38 + F);
     og.gain.exponentialRampToValueAtTime(0.001, t + 0.6);
+    og.gain.linearRampToValueAtTime(0, t + 0.6 + F);
     o.connect(og).connect(this.master);
     o.start(t);
     o.stop(t + 0.65);
@@ -212,16 +215,17 @@ export class StationAudio {
     const ac = this.ctx;
     const v = this.near(dist);
     if (!ac || v <= 0) return;
-    const t = ac.currentTime;
+    const t = ac.currentTime + 0.01;
+    const F = 0.005;
     [[520, 0], [390, 0.16]].forEach(([f, dt]) => {
       const o = ac.createOscillator();
       o.type = 'square';
       o.frequency.value = f;
       const g = ac.createGain();
       g.gain.setValueAtTime(0, t + dt);
-      g.gain.linearRampToValueAtTime(0.06 * v, t + dt + 0.01);
-      g.gain.setValueAtTime(0.06 * v, t + dt + 0.11);
-      g.gain.linearRampToValueAtTime(0, t + dt + 0.13);
+      g.gain.linearRampToValueAtTime(0.06 * v, t + dt + F);
+      g.gain.setValueAtTime(0.06 * v, t + dt + 0.12);
+      g.gain.linearRampToValueAtTime(0, t + dt + 0.12 + F);
       o.connect(g).connect(this.master);
       o.start(t + dt);
       o.stop(t + dt + 0.15);
