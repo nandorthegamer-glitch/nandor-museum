@@ -1,0 +1,9 @@
+{
+  "id": "survive-and-conquer",
+  "status": "closed",
+  "title": { "it": "Survive And Conquer", "en": "Survive And Conquer" },
+  "tagline": { "it": "Sopravvivenza su pianeti sferici a voxel", "en": "Survival on spherical voxel planets" },
+  "color": "#f07030",
+  "size": { "w": 10, "d": 12, "h": 4 },
+  "exhibits": []
+}

@@ -1,0 +1,6 @@
+node_modules/
+dist/
+# strumenti pesanti scaricati (ffmpeg, voci piper) e sorgenti grezzi: non servono alla build
+tools/ffmpeg/
+tools/piper/
+assets-src/

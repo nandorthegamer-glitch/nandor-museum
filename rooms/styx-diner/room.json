@@ -1,0 +1,109 @@
+{
+  "id": "styx-diner",
+  "status": "open",
+  "title": { "it": "Styx Diner", "en": "Styx Diner" },
+  "tagline": { "it": "Una cucina sulle rive dello Stige", "en": "A kitchen on the banks of the Styx" },
+  "color": "#f0d060",
+  "size": { "w": 15.4, "d": 16.2, "h": 3.2 },
+
+  "shell": "unity",
+  "textures": { "wall": "media/intonacocrema.png" },
+  "pack": "media/styx.json",
+
+  "exhibits": [
+    { "type": "model", "mesh": ["sala", "cucina", "cortile"], "at": [0, 0], "offset": [-3.5, 0, 11], "colliders": true },
+
+    { "type": "model", "mesh": "mucca", "at": [17.74, 2.95], "yaw": 90, "noCollide": true },
+    { "type": "light", "at": [16.6, 2.95], "y": 2.3, "color": "#ffb070", "intensity": 7, "distance": 5 },
+
+    { "type": "model", "mesh": "gatto", "at": [10.52, 0], "y": 1.13, "noCollide": true },
+    { "type": "model", "mesh": "lax", "at": [14.5, -0.2], "noCollide": true },
+
+    { "type": "vitrine", "at": [5, 2.6], "size": [2.8, 1.25, 1.2], "base": 0.35 },
+    { "type": "model", "mesh": "vecchio", "at": [5, 2.4], "y": 0.4, "rot": 90, "noCollide": true },
+    { "type": "vitrine", "at": [5, -2.4], "size": [1.6, 2.58, 2.1], "base": 0.3 },
+    { "type": "model", "mesh": "crociato", "at": [5, -2.4], "y": 0.31, "noCollide": true },
+
+    { "type": "lectern", "at": [1.5, 1.8], "panel": "styx", "color": "#f0d060",
+      "title": { "it": "STYX DINER", "en": "STYX DINER" },
+      "sub": { "it": "il gioco", "en": "the game" } },
+    { "type": "lectern", "at": [3.1, 2.6], "panel": "styx-vecchio", "color": "#b890e0",
+      "title": { "it": "IL VECCHIO", "en": "THE OLD MAN" },
+      "sub": { "it": "dal disegno al modello", "en": "from drawing to model" } },
+    { "type": "lectern", "at": [3.1, -2.4], "panel": "styx-crociato", "color": "#b890e0",
+      "title": { "it": "IL CROCIATO", "en": "THE CRUSADER" },
+      "sub": { "it": "dal disegno al modello", "en": "from drawing to model" } },
+
+    { "type": "light", "at": [9.8, 5.7], "y": 2.0, "intensity": 4, "distance": 6 },
+    { "type": "light", "at": [9.8, 2.9], "y": 2.0, "intensity": 4, "distance": 6 },
+    { "type": "light", "at": [9.8, 0.15], "y": 2.0, "intensity": 4, "distance": 6 },
+    { "type": "light", "at": [9.8, -2.6], "y": 2.0, "intensity": 4, "distance": 6 },
+    { "type": "light", "at": [9.8, -5.4], "y": 2.0, "intensity": 4, "distance": 6 },
+    { "type": "light", "at": [7, 0], "y": 2.0, "intensity": 5, "distance": 7 },
+    { "type": "light", "at": [3, 0], "y": 2.0, "intensity": 5, "distance": 7 },
+    { "type": "light", "at": [13.4, 0], "y": 2.6, "color": "#e8f4ff", "intensity": 9, "distance": 8 },
+    { "type": "light", "at": [20, 2.6], "y": 3.5, "color": "#ff9a50", "intensity": 24, "distance": 12 }
+  ],
+
+  "panels": {
+    "styx": {
+      "title": { "it": "Styx Diner", "en": "Styx Diner" },
+      "body": [
+        {
+          "it": "Un gioco in prima persona ambientato in un diner anni '50 consumato dal tempo, sulle rive dello Stige. Metà simulatore di cucina, metà storia da esplorare, con un'atmosfera spettrale e surreale.",
+          "en": "A first-person game set in a time-worn 1950s diner on the banks of the Styx. Half cooking sim, half story to explore, with a spooky, surreal mood."
+        },
+        {
+          "it": "Si lavora in cucina e nel cortile, dove un tramonto non finisce mai. La sala da pranzo si vede oltre il passavivande: da lì arrivano i clienti, uno alla volta. Sono tutti già morti, e ognuno ha una storia da raccontare mentre mangia quello che gli cucini.",
+          "en": "You work in the kitchen and in the yard, under a sunset that never ends. The dining room is seen past the pass-through: that's where the customers come in, one at a time. They're all already dead, and each has a story to tell while eating what you cook."
+        },
+        {
+          "it": "Anche gli animali del cortile sono di là da sempre: la mucca, il maiale e la gallina producono per l'eternità il latte, la carne e le uova delle ricette. In questa stanza ci sono i clienti: il Vecchio e il crociato nelle teche, il gatto che dorme sul bancone e, in cucina, la demonessa che chiude la giornata.",
+          "en": "The yard animals have been over there forever too: the cow, the pig and the hen produce the milk, meat and eggs of the recipes for all eternity. This room holds the customers: the Old Man and the crusader in the cases, the cat asleep on the counter and, in the kitchen, the she-devil who ends the day."
+        },
+        {
+          "it": "Tutto è costruito da codice in Unity: il diner, i mobili, i personaggi e le loro animazioni, con la grafica di una PlayStation 1. Il set e i personaggi che vedi qui sono stati estratti direttamente dai file del progetto.",
+          "en": "Everything is built by code in Unity: the diner, the furniture, the characters and their animations, drawn like a PlayStation 1 game. The set and characters you see here were pulled straight out of the project files."
+        }
+      ]
+    },
+    "styx-vecchio": {
+      "title": { "it": "Il Vecchio", "en": "The Old Man" },
+      "image": "media/artwork-vecchio.jpg",
+      "caption": { "it": "Il disegno originale, a matita viola.", "en": "The original drawing, in purple pencil." },
+      "body": [
+        {
+          "it": "Il primo cliente del diner nasce da questo disegno: un vecchio scheletrico che striscia sulle braccia, con la testa sepolta sotto escrescenze tondeggianti, un taglio sul fianco e le gambe avvolte da una pianta spinosa che finisce in un vaso rotto.",
+          "en": "The diner's first customer comes from this drawing: a skeletal old man crawling on his arms, his head buried under bulging growths, a cut in his side and his legs wrapped in a thorny plant that ends in a broken vase."
+        },
+        {
+          "it": "Il modello è generato da codice in Unity, senza Blender: tubi e sfere low poly, circa 1.250 triangoli e 20 ossa. La texture è presa direttamente dal disegno, parte per parte, e ridotta a 16 colori come su PlayStation 1.",
+          "en": "The model is generated by code in Unity, with no Blender: low-poly tubes and spheres, about 1,250 triangles and 20 bones. The texture is taken straight from the drawing, part by part, and cut down to 16 colours like on a PlayStation 1."
+        },
+        {
+          "it": "Anche il modo di strisciare è procedurale: le mani si piantano a terra una dopo l'altra, le gambe vengono trascinate come una corda e le escrescenze ondeggiano a ogni spinta. Nel gioco striscia fino a uno sgabello del bancone e aspetta il suo piatto.",
+          "en": "The crawl is procedural too: the hands plant on the floor one after the other, the legs are dragged like a rope and the growths wobble at every push. In the game he crawls to a counter stool and waits for his dish."
+        }
+      ]
+    },
+    "styx-crociato": {
+      "title": { "it": "Il crociato", "en": "The crusader" },
+      "image": "media/artwork-crociato.jpg",
+      "caption": { "it": "Il disegno originale.", "en": "The original drawing." },
+      "body": [
+        {
+          "it": "Il terzo cliente viene da questo disegno: un crociato di due metri con il volto di teschio e i denti da vampiro, un elmo di latta aperto come una scatoletta e strappato in una corona di croci storte.",
+          "en": "The third customer comes from this drawing: a two-metre crusader with a skull face and vampire teeth, a tin helmet opened like a can and torn into a crown of crooked crosses."
+        },
+        {
+          "it": "Ha quattro braccia: il paio libero parte dalle spalle, quello che regge la spada dalla vita. La spada brucia, e brucia anche la punta del lungo lembo di mantello che si trascina dietro: fiamme alla PlayStation 1, a lingue tremolanti.",
+          "en": "He has four arms: the free pair from the shoulders, the pair holding the sword from the waist. The sword is on fire, and so is the tip of the long cape flap he drags behind him: PlayStation 1 fire, in flickering tongues."
+        },
+        {
+          "it": "Tutto è modellato da codice in Unity, pezzo per pezzo, con le texture dipinte da codice. Nel gioco marcia pesante ma veloce fino al bancone, si siede e pianta la spada nel pavimento accanto a sé.",
+          "en": "It's all modelled by code in Unity, piece by piece, with textures painted by code. In the game he marches, heavy but fast, to the counter, sits down and plants the sword in the floor beside him."
+        }
+      ]
+    }
+  }
+}

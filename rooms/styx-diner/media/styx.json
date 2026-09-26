@@ -1,0 +1,2219 @@
+{
+ "bin": "styx.bin",
+ "crop": 11,
+ "materials": [
+  {
+   "name": "Lattuga",
+   "tex": "lattuga.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Patata",
+   "tex": "patata.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Terra",
+   "tex": "terra.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Acciaio",
+   "tex": "acciaio.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Piastra",
+   "tex": "piastra.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "DiarioCopertina",
+   "tex": "diariocopertina.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "DiarioPagine",
+   "tex": "diariopagine.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": true,
+   "transparent": false
+  },
+  {
+   "name": "LegnoGrigio",
+   "tex": "legnogrigio.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Foglie",
+   "tex": "foglie.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "TerraOrto",
+   "tex": "terraorto.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "SmaltoFrigo",
+   "tex": "smaltofrigo.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Cromo",
+   "tex": "cromo.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "VernicePorta",
+   "tex": "verniceporta.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Fagiolini",
+   "tex": "fagiolini.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "FornoAcceso",
+   "tex": "fornoacceso.png",
+   "color": [
+    1,
+    0.5,
+    0.15
+   ],
+   "unlit": true,
+   "transparent": false
+  },
+  {
+   "name": "Pomodoro",
+   "tex": "pomodoro.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Piatto",
+   "tex": "piatto.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "BordoPiatto",
+   "tex": "bordopiatto.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "PulsanteFrullatore",
+   "tex": "pulsantefrullatore.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Becco",
+   "tex": "becco.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Gallina",
+   "tex": "gallina.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Cresta",
+   "tex": "cresta.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Fieno",
+   "tex": "fieno.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Catrame",
+   "tex": "catrame.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "VetroScuro",
+   "tex": "vetroscuro.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Sala_Cromo",
+   "tex": "cromo.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Sala_Formica",
+   "tex": "formica.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Sala_Vinile",
+   "tex": "vinile.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Sala_PiastrelleMenta",
+   "tex": "piastrellementa.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Sala_Lampadina",
+   "tex": "lampadina.png",
+   "color": [
+    1,
+    0.82,
+    0.5
+   ],
+   "unlit": true,
+   "transparent": false
+  },
+  {
+   "name": "Sala_VetroAmbra",
+   "tex": "vetroambra.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Mattoni",
+   "tex": "mattoni.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "AssiVecchie",
+   "tex": "assivecchie.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Lampadina",
+   "tex": "lampadina.png",
+   "color": [
+    1,
+    0.82,
+    0.5
+   ],
+   "unlit": true,
+   "transparent": false
+  },
+  {
+   "name": "VetroFrullatore",
+   "tex": "vetrofrullatore.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Mucca",
+   "tex": "mucca.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Grugno",
+   "tex": "grugno.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Corna",
+   "tex": "corna.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "PostIt",
+   "tex": "postit.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": true,
+   "transparent": false
+  },
+  {
+   "name": "Maiale",
+   "tex": "maiale.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Scacchi",
+   "tex": "scacchi.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "IntonacoEsterno",
+   "tex": "intonacoesterno.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "IntonacoCrema",
+   "tex": "intonacocrema.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "PiastrelleMenta",
+   "tex": "piastrellementa.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Sala_IntonacoCrema",
+   "tex": "intonacocrema.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Sala_Scacchi",
+   "tex": "scacchi.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Tagliere",
+   "tex": "tagliere.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Neon",
+   "tex": "neon.png",
+   "color": [
+    0.78,
+    1,
+    0.95
+   ],
+   "unlit": true,
+   "transparent": false
+  },
+  {
+   "name": "Cielo_fondale",
+   "tex": "cielo.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": true,
+   "transparent": false
+  },
+  {
+   "name": "Gatto_Pelo",
+   "tex": "gatto_pelo.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Gatto_Grigio",
+   "tex": "gatto_grigio.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Gatto_Zeta",
+   "tex": "gatto_zeta.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": true,
+   "transparent": false
+  },
+  {
+   "name": "Gatto_Foglio",
+   "tex": "gatto_foglio.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Gatto_Pupilla",
+   "tex": "gatto_pupilla.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Gatto_Rosa",
+   "tex": "gatto_rosa.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Gatto_Occhi",
+   "tex": "gatto_occhi.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Lax_Pelle",
+   "tex": "lax_pelle.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Lax_Occhi",
+   "tex": "lax_occhi.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Lax_Pupille",
+   "tex": "lax_pupille.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Lax_Iride",
+   "tex": "lax_iride.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Lax_Rossetto",
+   "tex": "lax_rossetto.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Lax_Capelli_neri",
+   "tex": "lax_capelli_neri.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Lax_Corna",
+   "tex": "lax_corna.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Lax_Capelli_rossi",
+   "tex": "lax_capelli_rossi.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Lax_Ali",
+   "tex": "lax_ali.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Lax_Vestito",
+   "tex": "lax_vestito.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Lax_Tacchi",
+   "tex": "lax_tacchi.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Crociato_Maglia",
+   "tex": "crociato_maglia.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Crociato_Cuoio",
+   "tex": "crociato_cuoio.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Crociato_Ottone",
+   "tex": "crociato_ottone.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Crociato_Ferro",
+   "tex": "crociato_ferro.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Crociato_Fiamma",
+   "tex": "crociato_fiamma.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": true,
+   "transparent": false
+  },
+  {
+   "name": "Crociato_Fiamma_Cuore",
+   "tex": "crociato_fiamma_cuore.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": true,
+   "transparent": false
+  },
+  {
+   "name": "Crociato_Bruciato",
+   "tex": "crociato_bruciato.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Crociato_Tunica",
+   "tex": "crociato_tunica.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Crociato_Mantello",
+   "tex": "crociato_mantello.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Crociato_Latta",
+   "tex": "crociato_latta.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Crociato_Osso",
+   "tex": "crociato_osso.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Crociato_Buio",
+   "tex": "crociato_buio.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Crociato_Croce",
+   "tex": "crociato_croce.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Crociato_Impugnatura",
+   "tex": "crociato_impugnatura.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  },
+  {
+   "name": "Crociato_Lama",
+   "tex": "crociato_lama.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": true,
+   "transparent": false
+  },
+  {
+   "name": "OldMan",
+   "tex": "OldMan.png",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "unlit": false,
+   "transparent": false
+  }
+ ],
+ "meshes": {
+  "sala": {
+   "vertices": 13968,
+   "indices": 13968,
+   "min": [
+    -4.199999809265137,
+    0,
+    -11
+   ],
+   "max": [
+    11.199999809265137,
+    3,
+    0
+   ],
+   "groups": [
+    {
+     "start": 0,
+     "count": 4824,
+     "mat": 25
+    },
+    {
+     "start": 4824,
+     "count": 1032,
+     "mat": 26
+    },
+    {
+     "start": 5856,
+     "count": 3258,
+     "mat": 27
+    },
+    {
+     "start": 9114,
+     "count": 960,
+     "mat": 28
+    },
+    {
+     "start": 10074,
+     "count": 252,
+     "mat": 29
+    },
+    {
+     "start": 10326,
+     "count": 1035,
+     "mat": 45
+    },
+    {
+     "start": 11361,
+     "count": 1764,
+     "mat": 44
+    },
+    {
+     "start": 13125,
+     "count": 843,
+     "mat": 41
+    }
+   ],
+   "colliders": [
+    [
+     -4,
+     -0.76,
+     11,
+     -0.2
+    ],
+    [
+     -4,
+     -0.77,
+     11,
+     -0.74
+    ],
+    [
+     -3.285,
+     -1.18,
+     -3.215,
+     -1.12
+    ],
+    [
+     -3.45,
+     -1.34,
+     -3.05,
+     -0.96
+    ],
+    [
+     -3.44,
+     -1.331,
+     -3.06,
+     -0.969
+    ],
+    [
+     -2.185,
+     -1.18,
+     -2.115,
+     -1.12
+    ],
+    [
+     -2.35,
+     -1.34,
+     -1.95,
+     -0.96
+    ],
+    [
+     -2.34,
+     -1.331,
+     -1.96,
+     -0.969
+    ],
+    [
+     -1.085,
+     -1.18,
+     -1.015,
+     -1.12
+    ],
+    [
+     -1.25,
+     -1.34,
+     -0.85,
+     -0.96
+    ],
+    [
+     -1.24,
+     -1.331,
+     -0.86,
+     -0.969
+    ],
+    [
+     0.015,
+     -1.18,
+     0.085,
+     -1.12
+    ],
+    [
+     -0.15,
+     -1.34,
+     0.25,
+     -0.96
+    ],
+    [
+     -0.14,
+     -1.331,
+     0.24,
+     -0.969
+    ],
+    [
+     1.115,
+     -1.18,
+     1.185,
+     -1.12
+    ],
+    [
+     0.95,
+     -1.34,
+     1.35,
+     -0.96
+    ],
+    [
+     0.96,
+     -1.331,
+     1.34,
+     -0.969
+    ],
+    [
+     2.215,
+     -1.18,
+     2.285,
+     -1.12
+    ],
+    [
+     2.05,
+     -1.34,
+     2.45,
+     -0.96
+    ],
+    [
+     2.06,
+     -1.331,
+     2.44,
+     -0.969
+    ],
+    [
+     3.315,
+     -1.18,
+     3.385,
+     -1.12
+    ],
+    [
+     3.15,
+     -1.34,
+     3.55,
+     -0.96
+    ],
+    [
+     3.16,
+     -1.331,
+     3.54,
+     -0.969
+    ],
+    [
+     4.415,
+     -1.18,
+     4.485,
+     -1.12
+    ],
+    [
+     4.25,
+     -1.34,
+     4.65,
+     -0.96
+    ],
+    [
+     4.26,
+     -1.331,
+     4.64,
+     -0.969
+    ],
+    [
+     5.515,
+     -1.18,
+     5.585,
+     -1.12
+    ],
+    [
+     5.35,
+     -1.34,
+     5.75,
+     -0.96
+    ],
+    [
+     5.36,
+     -1.331,
+     5.74,
+     -0.969
+    ],
+    [
+     6.615,
+     -1.18,
+     6.685,
+     -1.12
+    ],
+    [
+     6.45,
+     -1.34,
+     6.85,
+     -0.96
+    ],
+    [
+     6.46,
+     -1.331,
+     6.84,
+     -0.969
+    ],
+    [
+     7.715,
+     -1.18,
+     7.785,
+     -1.12
+    ],
+    [
+     7.55,
+     -1.34,
+     7.95,
+     -0.96
+    ],
+    [
+     7.56,
+     -1.331,
+     7.94,
+     -0.969
+    ],
+    [
+     8.815,
+     -1.18,
+     8.885,
+     -1.12
+    ],
+    [
+     8.65,
+     -1.34,
+     9.05,
+     -0.96
+    ],
+    [
+     8.66,
+     -1.331,
+     9.04,
+     -0.969
+    ],
+    [
+     9.915,
+     -1.18,
+     9.985,
+     -1.12
+    ],
+    [
+     9.75,
+     -1.34,
+     10.15,
+     -0.96
+    ],
+    [
+     9.76,
+     -1.331,
+     10.14,
+     -0.969
+    ],
+    [
+     -4,
+     -4.6,
+     -2.95,
+     -3.8
+    ],
+    [
+     -3.24,
+     -4.235,
+     -3.16,
+     -4.165
+    ],
+    [
+     -4,
+     -3.75,
+     -2.95,
+     -3.1
+    ],
+    [
+     -4,
+     -3.27,
+     -2.95,
+     -3.08
+    ],
+    [
+     -4,
+     -5.3,
+     -2.95,
+     -4.65
+    ],
+    [
+     -4,
+     -5.32,
+     -2.95,
+     -5.13
+    ],
+    [
+     9.95,
+     -4.6,
+     11,
+     -3.8
+    ],
+    [
+     10.16,
+     -4.235,
+     10.24,
+     -4.165
+    ],
+    [
+     9.95,
+     -3.75,
+     11,
+     -3.1
+    ],
+    [
+     9.95,
+     -3.27,
+     11,
+     -3.08
+    ],
+    [
+     9.95,
+     -5.3,
+     11,
+     -4.65
+    ],
+    [
+     9.95,
+     -5.32,
+     11,
+     -5.13
+    ],
+    [
+     -4,
+     -7,
+     -2.95,
+     -6.2
+    ],
+    [
+     -3.24,
+     -6.635,
+     -3.16,
+     -6.565
+    ],
+    [
+     -4,
+     -6.15,
+     -2.95,
+     -5.5
+    ],
+    [
+     -4,
+     -5.67,
+     -2.95,
+     -5.48
+    ],
+    [
+     -4,
+     -7.7,
+     -2.95,
+     -7.05
+    ],
+    [
+     -4,
+     -7.72,
+     -2.95,
+     -7.53
+    ],
+    [
+     9.95,
+     -7,
+     11,
+     -6.2
+    ],
+    [
+     10.16,
+     -6.635,
+     10.24,
+     -6.565
+    ],
+    [
+     9.95,
+     -6.15,
+     11,
+     -5.5
+    ],
+    [
+     9.95,
+     -5.67,
+     11,
+     -5.48
+    ],
+    [
+     9.95,
+     -7.7,
+     11,
+     -7.05
+    ],
+    [
+     9.95,
+     -7.72,
+     11,
+     -7.53
+    ],
+    [
+     -4,
+     -9.4,
+     -2.95,
+     -8.6
+    ],
+    [
+     -3.24,
+     -9.035,
+     -3.16,
+     -8.965
+    ],
+    [
+     -4,
+     -8.55,
+     -2.95,
+     -7.9
+    ],
+    [
+     -4,
+     -8.07,
+     -2.95,
+     -7.88
+    ],
+    [
+     -4,
+     -10.1,
+     -2.95,
+     -9.45
+    ],
+    [
+     -4,
+     -10.12,
+     -2.95,
+     -9.93
+    ],
+    [
+     9.95,
+     -9.4,
+     11,
+     -8.6
+    ],
+    [
+     10.16,
+     -9.035,
+     10.24,
+     -8.965
+    ],
+    [
+     9.95,
+     -8.55,
+     11,
+     -7.9
+    ],
+    [
+     9.95,
+     -8.07,
+     11,
+     -7.88
+    ],
+    [
+     9.95,
+     -10.1,
+     11,
+     -9.45
+    ],
+    [
+     9.95,
+     -10.12,
+     11,
+     -9.93
+    ],
+    [
+     -4,
+     -10.95,
+     -2.95,
+     -10.3
+    ],
+    [
+     -4,
+     -10.47,
+     -2.95,
+     -10.28
+    ],
+    [
+     9.95,
+     -10.95,
+     11,
+     -10.3
+    ],
+    [
+     9.95,
+     -10.47,
+     11,
+     -10.28
+    ],
+    [
+     3.46,
+     -4.035,
+     3.54,
+     -3.965
+    ],
+    [
+     3.04,
+     -4.437,
+     3.96,
+     -3.563
+    ],
+    [
+     3.05,
+     -4.428,
+     3.95,
+     -3.572
+    ],
+    [
+     2.565,
+     -3.845,
+     2.595,
+     -3.815
+    ],
+    [
+     2.565,
+     -4.185,
+     2.595,
+     -4.155
+    ],
+    [
+     2.905,
+     -3.845,
+     2.935,
+     -3.815
+    ],
+    [
+     2.905,
+     -4.185,
+     2.935,
+     -4.155
+    ],
+    [
+     2.55,
+     -4.2,
+     2.95,
+     -3.8
+    ],
+    [
+     2.54,
+     -4.2,
+     2.58,
+     -3.8
+    ],
+    [
+     4.065,
+     -3.845,
+     4.095,
+     -3.815
+    ],
+    [
+     4.065,
+     -4.185,
+     4.095,
+     -4.155
+    ],
+    [
+     4.405,
+     -3.845,
+     4.435,
+     -3.815
+    ],
+    [
+     4.405,
+     -4.185,
+     4.435,
+     -4.155
+    ],
+    [
+     4.05,
+     -4.2,
+     4.45,
+     -3.8
+    ],
+    [
+     4.42,
+     -4.2,
+     4.46,
+     -3.8
+    ],
+    [
+     3.46,
+     -8.035,
+     3.54,
+     -7.965
+    ],
+    [
+     3.04,
+     -8.437,
+     3.96,
+     -7.563
+    ],
+    [
+     3.05,
+     -8.428,
+     3.95,
+     -7.572
+    ],
+    [
+     2.565,
+     -7.845,
+     2.595,
+     -7.815
+    ],
+    [
+     2.565,
+     -8.185,
+     2.595,
+     -8.155
+    ],
+    [
+     2.905,
+     -7.845,
+     2.935,
+     -7.815
+    ],
+    [
+     2.905,
+     -8.185,
+     2.935,
+     -8.155
+    ],
+    [
+     2.55,
+     -8.2,
+     2.95,
+     -7.8
+    ],
+    [
+     2.54,
+     -8.2,
+     2.58,
+     -7.8
+    ],
+    [
+     4.065,
+     -7.845,
+     4.095,
+     -7.815
+    ],
+    [
+     4.065,
+     -8.185,
+     4.095,
+     -8.155
+    ],
+    [
+     4.405,
+     -7.845,
+     4.435,
+     -7.815
+    ],
+    [
+     4.405,
+     -8.185,
+     4.435,
+     -8.155
+    ],
+    [
+     4.05,
+     -8.2,
+     4.45,
+     -7.8
+    ],
+    [
+     4.42,
+     -8.2,
+     4.46,
+     -7.8
+    ],
+    [
+     -4.4,
+     -11,
+     -4,
+     0
+    ],
+    [
+     11,
+     -11,
+     11.4,
+     0
+    ]
+   ],
+   "pos": 0,
+   "nor": 167616,
+   "col": 335232,
+   "idx": 558720,
+   "uv": 614592
+  },
+  "cucina": {
+   "vertices": 24114,
+   "indices": 24114,
+   "min": [
+    -0.20000000298023224,
+    0,
+    -0.20000000298023224
+   ],
+   "max": [
+    7.200000286102295,
+    3.200000047683716,
+    5.978830223171669
+   ],
+   "groups": [
+    {
+     "start": 0,
+     "count": 4080,
+     "mat": 3
+    },
+    {
+     "start": 4080,
+     "count": 3378,
+     "mat": 4
+    },
+    {
+     "start": 7458,
+     "count": 72,
+     "mat": 5
+    },
+    {
+     "start": 7530,
+     "count": 72,
+     "mat": 6
+    },
+    {
+     "start": 7602,
+     "count": 2640,
+     "mat": 10
+    },
+    {
+     "start": 10242,
+     "count": 2100,
+     "mat": 11
+    },
+    {
+     "start": 12342,
+     "count": 786,
+     "mat": 12
+    },
+    {
+     "start": 13128,
+     "count": 60,
+     "mat": 14
+    },
+    {
+     "start": 13188,
+     "count": 1404,
+     "mat": 16
+    },
+    {
+     "start": 14592,
+     "count": 648,
+     "mat": 17
+    },
+    {
+     "start": 15240,
+     "count": 36,
+     "mat": 18
+    },
+    {
+     "start": 15276,
+     "count": 48,
+     "mat": 34
+    },
+    {
+     "start": 15324,
+     "count": 36,
+     "mat": 38
+    },
+    {
+     "start": 15360,
+     "count": 840,
+     "mat": 40
+    },
+    {
+     "start": 16200,
+     "count": 1728,
+     "mat": 41
+    },
+    {
+     "start": 17928,
+     "count": 990,
+     "mat": 23
+    },
+    {
+     "start": 18918,
+     "count": 2742,
+     "mat": 42
+    },
+    {
+     "start": 21660,
+     "count": 1218,
+     "mat": 43
+    },
+    {
+     "start": 22878,
+     "count": 342,
+     "mat": 28
+    },
+    {
+     "start": 23220,
+     "count": 300,
+     "mat": 44
+    },
+    {
+     "start": 23520,
+     "count": 234,
+     "mat": 46
+    },
+    {
+     "start": 23754,
+     "count": 96,
+     "mat": 24
+    },
+    {
+     "start": 23850,
+     "count": 264,
+     "mat": 47
+    }
+   ],
+   "pos": 726336,
+   "nor": 1015704,
+   "col": 1305072,
+   "idx": 1690896,
+   "uv": 1787352
+  },
+  "cortile": {
+   "vertices": 14562,
+   "indices": 14562,
+   "min": [
+    -1.5,
+    0,
+    4.999999523162842
+   ],
+   "max": [
+    8.5,
+    9,
+    13
+   ],
+   "groups": [
+    {
+     "start": 0,
+     "count": 768,
+     "mat": 0
+    },
+    {
+     "start": 768,
+     "count": 672,
+     "mat": 1
+    },
+    {
+     "start": 1440,
+     "count": 1176,
+     "mat": 2
+    },
+    {
+     "start": 2616,
+     "count": 3972,
+     "mat": 7
+    },
+    {
+     "start": 6588,
+     "count": 1230,
+     "mat": 8
+    },
+    {
+     "start": 7818,
+     "count": 558,
+     "mat": 9
+    },
+    {
+     "start": 8376,
+     "count": 450,
+     "mat": 13
+    },
+    {
+     "start": 8826,
+     "count": 1200,
+     "mat": 15
+    },
+    {
+     "start": 10026,
+     "count": 90,
+     "mat": 19
+    },
+    {
+     "start": 10116,
+     "count": 96,
+     "mat": 20
+    },
+    {
+     "start": 10212,
+     "count": 60,
+     "mat": 21
+    },
+    {
+     "start": 10272,
+     "count": 180,
+     "mat": 4
+    },
+    {
+     "start": 10452,
+     "count": 72,
+     "mat": 22
+    },
+    {
+     "start": 10524,
+     "count": 24,
+     "mat": 23
+    },
+    {
+     "start": 10548,
+     "count": 30,
+     "mat": 24
+    },
+    {
+     "start": 10578,
+     "count": 3264,
+     "mat": 31
+    },
+    {
+     "start": 13842,
+     "count": 258,
+     "mat": 32
+    },
+    {
+     "start": 14100,
+     "count": 36,
+     "mat": 33
+    },
+    {
+     "start": 14136,
+     "count": 252,
+     "mat": 39
+    },
+    {
+     "start": 14388,
+     "count": 126,
+     "mat": 36
+    },
+    {
+     "start": 14514,
+     "count": 48,
+     "mat": 48
+    }
+   ],
+   "pos": 1980264,
+   "nor": 2155008,
+   "col": 2329752,
+   "idx": 2562744,
+   "uv": 2620992
+  },
+  "mucca": {
+   "vertices": 966,
+   "indices": 966,
+   "min": [
+    -0.8600000143051147,
+    0,
+    -0.36000001430511475
+   ],
+   "max": [
+    1.340000033378601,
+    1.6799999475479126,
+    0.36000001430511475
+   ],
+   "groups": [
+    {
+     "start": 0,
+     "count": 618,
+     "mat": 35
+    },
+    {
+     "start": 618,
+     "count": 216,
+     "mat": 4
+    },
+    {
+     "start": 834,
+     "count": 72,
+     "mat": 36
+    },
+    {
+     "start": 906,
+     "count": 60,
+     "mat": 37
+    }
+   ],
+   "pos": 2737488,
+   "nor": 2749080,
+   "col": 2760672,
+   "idx": 2776128,
+   "uv": 2779992
+  },
+  "gatto": {
+   "vertices": 2616,
+   "indices": 2616,
+   "min": [
+    -0.13379738482840256,
+    -0.07518987159853222,
+    -0.24021867540382708
+   ],
+   "max": [
+    0.1375245153997935,
+    0.5980645497408912,
+    0.23938614280922405
+   ],
+   "groups": [
+    {
+     "start": 0,
+     "count": 1515,
+     "mat": 49
+    },
+    {
+     "start": 1515,
+     "count": 558,
+     "mat": 50
+    },
+    {
+     "start": 2073,
+     "count": 216,
+     "mat": 51
+    },
+    {
+     "start": 2289,
+     "count": 126,
+     "mat": 52
+    },
+    {
+     "start": 2415,
+     "count": 144,
+     "mat": 53
+    },
+    {
+     "start": 2559,
+     "count": 9,
+     "mat": 54
+    },
+    {
+     "start": 2568,
+     "count": 48,
+     "mat": 55
+    }
+   ],
+   "pos": 2787720,
+   "nor": 2819112,
+   "col": 2850504,
+   "idx": 2892360,
+   "uv": 2902824
+  },
+  "lax": {
+   "vertices": 12408,
+   "indices": 12408,
+   "min": [
+    -1.6898548549453216,
+    -0.07338271241423396,
+    -0.44540936390181046
+   ],
+   "max": [
+    1.6896109462149598,
+    1.9412701459156563,
+    1.0778515621223426
+   ],
+   "groups": [
+    {
+     "start": 0,
+     "count": 5004,
+     "mat": 56
+    },
+    {
+     "start": 5004,
+     "count": 96,
+     "mat": 57
+    },
+    {
+     "start": 5100,
+     "count": 468,
+     "mat": 58
+    },
+    {
+     "start": 5568,
+     "count": 48,
+     "mat": 59
+    },
+    {
+     "start": 5616,
+     "count": 336,
+     "mat": 60
+    },
+    {
+     "start": 5952,
+     "count": 2592,
+     "mat": 61
+    },
+    {
+     "start": 8544,
+     "count": 180,
+     "mat": 62
+    },
+    {
+     "start": 8724,
+     "count": 2592,
+     "mat": 63
+    },
+    {
+     "start": 11316,
+     "count": 72,
+     "mat": 64
+    },
+    {
+     "start": 11388,
+     "count": 876,
+     "mat": 65
+    },
+    {
+     "start": 12264,
+     "count": 144,
+     "mat": 66
+    }
+   ],
+   "pos": 2923752,
+   "nor": 3072648,
+   "col": 3221544,
+   "idx": 3420072,
+   "uv": 3469704
+  },
+  "crociato": {
+   "vertices": 5493,
+   "indices": 5493,
+   "min": [
+    -0.5000525865925655,
+    -0.013184975099887551,
+    -0.9595562613287538
+   ],
+   "max": [
+    0.5936178861721378,
+    2.1076581337492386,
+    0.9896931369026106
+   ],
+   "groups": [
+    {
+     "start": 0,
+     "count": 294,
+     "mat": 67
+    },
+    {
+     "start": 294,
+     "count": 420,
+     "mat": 68
+    },
+    {
+     "start": 714,
+     "count": 348,
+     "mat": 69
+    },
+    {
+     "start": 1062,
+     "count": 1368,
+     "mat": 70
+    },
+    {
+     "start": 2430,
+     "count": 96,
+     "mat": 71
+    },
+    {
+     "start": 2526,
+     "count": 96,
+     "mat": 72
+    },
+    {
+     "start": 2622,
+     "count": 12,
+     "mat": 73
+    },
+    {
+     "start": 2634,
+     "count": 468,
+     "mat": 74
+    },
+    {
+     "start": 3102,
+     "count": 72,
+     "mat": 75
+    },
+    {
+     "start": 3174,
+     "count": 444,
+     "mat": 76
+    },
+    {
+     "start": 3618,
+     "count": 1398,
+     "mat": 77
+    },
+    {
+     "start": 5016,
+     "count": 105,
+     "mat": 78
+    },
+    {
+     "start": 5121,
+     "count": 300,
+     "mat": 79
+    },
+    {
+     "start": 5421,
+     "count": 36,
+     "mat": 80
+    },
+    {
+     "start": 5457,
+     "count": 36,
+     "mat": 81
+    }
+   ],
+   "pos": 3568968,
+   "nor": 3634884,
+   "col": 3700800,
+   "idx": 3788688,
+   "uv": 3810660
+  },
+  "vecchio": {
+   "vertices": 3774,
+   "indices": 3774,
+   "min": [
+    -0.36869072914123535,
+    -0.051734838634729385,
+    -0.9997979402542114
+   ],
+   "max": [
+    0.37510138750076294,
+    0.9732344746589661,
+    1.4199999570846558
+   ],
+   "groups": [
+    {
+     "start": 0,
+     "count": 3774,
+     "mat": 82
+    }
+   ],
+   "pos": 3854604,
+   "nor": 3899892,
+   "col": 3945180,
+   "idx": 4005564,
+   "uv": 4020660
+  }
+ }
+}

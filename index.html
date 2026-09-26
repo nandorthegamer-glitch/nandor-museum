@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nandor Orbital Museum</title>
+  <style>
+    :root { --fg: #cfe3ee; --dim: #6d8494; --accent: #f0a040; --bg: #05080c; }
+    html, body { margin: 0; height: 100%; overflow: hidden; background: var(--bg); color: var(--fg);
+      font-family: "Consolas", "Courier New", monospace; }
+    canvas { display: block; }
+    #overlay { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center;
+      justify-content: center; gap: 18px; background: rgba(3, 6, 10, 0.82); text-align: center; padding: 16px; }
+    #overlay.hidden { display: none; }
+    #overlay h1 { margin: 0; font-size: clamp(22px, 5vw, 44px); letter-spacing: 0.2em; }
+    #overlay p { margin: 0; color: var(--dim); }
+    .row { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+    button { font: inherit; color: var(--fg); background: #0e1720; border: 1px solid #3a5364;
+      padding: 12px 22px; cursor: pointer; letter-spacing: 0.1em; }
+    button:hover { border-color: var(--accent); color: var(--accent); }
+    button:disabled { opacity: 0.4; cursor: default; border-color: #3a5364; color: var(--fg); }
+    #prompt { position: fixed; left: 50%; bottom: 14%; transform: translateX(-50%); padding: 8px 16px;
+      background: rgba(14, 10, 24, 0.85); border: 1px solid #3dff8a; color: #3dff8a; letter-spacing: 0.08em;
+      pointer-events: none; opacity: 0; transition: opacity 0.15s; white-space: nowrap; }
+    #prompt.on { opacity: 1; }
+    #panel { position: fixed; inset: 0; display: none; align-items: center; justify-content: center;
+      background: rgba(4, 2, 10, 0.72); padding: 16px; }
+    #panel.on { display: flex; }
+    #panel .card { max-width: 780px; max-height: 88vh; overflow: auto; background: #0e0a18; border: 1px solid #3dff8a;
+      box-shadow: 0 0 0 1px #ff3bd4 inset; padding: 22px 26px; line-height: 1.55; color: #d6ffe8; }
+    #panel h2 { margin: 0 0 14px; color: #3dff8a; letter-spacing: 0.06em; font-size: 20px; }
+    #panel figure { margin: 0 0 14px; float: right; width: min(300px, 45%); margin-left: 18px; }
+    #panel img { width: 100%; display: block; border: 1px solid #ff3bd4; }
+    #panel figcaption { font-size: 12px; color: #ff8ae6; margin-top: 6px; }
+    #panel p { margin: 0 0 12px; font-size: 15px; }
+    #panel p.link { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline; }
+    #panel p.link span { color: #ff8ae6; min-width: 110px; }
+    #panel a { color: #3dff8a; word-break: break-all; }
+    #panel a:hover { color: #ff3bd4; }
+    #panel .close { clear: both; text-align: right; color: #ff3bd4; font-size: 13px; letter-spacing: 0.1em; }
+    @media (max-width: 560px) { #panel figure { float: none; width: 100%; margin-left: 0; } }
+    #subs { position: fixed; left: 50%; bottom: 24%; transform: translateX(-50%); color: #3dff8a;
+      font-size: clamp(16px, 2.4vw, 26px); letter-spacing: 0.12em; text-shadow: 0 0 8px rgba(61, 255, 138, 0.6);
+      pointer-events: none; opacity: 0; transition: opacity 0.4s; white-space: nowrap; }
+    #subs.on { opacity: 1; }
+    .game-box { position: fixed; inset: 0; background: #000; z-index: 20; }
+    .game-box iframe { width: 100%; height: 100%; border: 0; display: block; }
+    .game-exit { position: absolute; top: 12px; right: 12px; padding: 6px 12px; font-size: 12px;
+      background: rgba(5, 2, 3, 0.7); border-color: #e02838; color: #e02838; }
+    .game-flash { position: fixed; inset: 0; pointer-events: none; z-index: 30; opacity: 0;
+      background: repeating-linear-gradient(0deg, #fff 0 2px, #9ab 2px 4px); }
+    .game-flash.on { animation: gameflash 0.26s steps(4) forwards; }
+    @keyframes gameflash { 0% { opacity: 0.9; } 50% { opacity: 0.6; } 100% { opacity: 0; } }
+    .game-toast { position: fixed; left: 50%; top: 18%; transform: translateX(-50%); max-width: 80vw;
+      padding: 10px 16px; background: rgba(14, 10, 24, 0.9); border: 1px solid #ff3bd4; color: #ff8ae6;
+      pointer-events: none; opacity: 0; transition: opacity 0.2s; text-align: center; z-index: 25; }
+    .game-toast.on { opacity: 1; }
+    #cross { position: fixed; left: 50%; top: 50%; width: 4px; height: 4px; margin: -2px 0 0 -2px;
+      background: var(--fg); opacity: 0.7; pointer-events: none; }
+  </style>
+</head>
+<body>
+  <div id="cross"></div>
+  <div id="prompt"></div>
+  <div id="subs"></div>
+  <div id="panel"></div>
+  <div id="overlay">
+    <h1>NANDOR ORBITAL MUSEUM</h1>
+    <p id="hint"></p>
+    <div class="row">
+      <button data-lang="it">ITALIANO</button>
+      <button data-lang="en">ENGLISH</button>
+    </div>
+    <div class="row"><button id="list" disabled></button></div>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

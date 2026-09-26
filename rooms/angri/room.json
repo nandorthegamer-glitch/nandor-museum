@@ -1,0 +1,56 @@
+{
+  "id": "angri",
+  "status": "open",
+  "title": { "it": "Angri PS1", "en": "Angri PS1" },
+  "tagline": { "it": "Una città vera ricostruita da dati cartografici aperti", "en": "A real town rebuilt from open map data" },
+  "color": "#40e080",
+  "size": { "w": 10, "d": 12, "h": 4 },
+
+  "pack": "media/angri.json",
+  "colorLight": 0.2,
+
+  "exhibits": [
+    { "type": "table", "at": [6, 0], "size": [3.2, 0.85, 3.2], "color": "#40e080", "light": 12 },
+    { "type": "model", "mesh": ["terreno", "edifici", "alberi"], "at": [6, 0], "y": 0.86,
+      "scale": 0.00375, "scaleY": 2, "map": "media/minimappa.png", "noCollide": true },
+
+    { "type": "lectern", "at": [3.1, 0], "panel": "angri", "color": "#40e080",
+      "title": { "it": "ANGRI PS1", "en": "ANGRI PS1" },
+      "sub": { "it": "come è fatta la mappa", "en": "how the map was made" } },
+
+    { "type": "arcade", "at": [11.3, 0], "color": "#40e080",
+      "title": { "it": "ANGRI PS1", "en": "ANGRI PS1" },
+      "screen": [
+        { "text": "ANGRI PS1", "size": 0.2, "bold": true, "color": "#40e080" },
+        { "text": "COMING SOON", "size": 0.16, "bold": true, "color": "#ff3bd4" }
+      ] }
+  ],
+
+  "panels": {
+    "angri": {
+      "title": { "it": "Angri PS1: la mappa", "en": "Angri PS1: the map" },
+      "body": [
+        {
+          "it": "Il plastico sul tavolo è Angri, in provincia di Salerno: un quadrato di 800 metri di lato attorno a piazza Annunziata, con tutte le strade, gli edifici, le chiese e i giardini. Non è disegnato a mano: è generato dai dati cartografici aperti.",
+          "en": "The model on the table is Angri, near Salerno: a square 800 metres across around Piazza Annunziata, with every street, building, church and garden. It isn't drawn by hand: it is generated from open map data."
+        },
+        {
+          "it": "Le sagome degli edifici e il terreno vengono dalla cartografia della Regione Campania, le altezze dalle stime di Microsoft, i nomi delle strade e le piazze da OpenStreetMap. Un importatore scritto dentro Unity legge questi file e costruisce la città da solo: niente Blender.",
+          "en": "Building footprints and the terrain come from the Campania Region's maps, heights from Microsoft's estimates, street names and squares from OpenStreetMap. An importer written inside Unity reads these files and builds the town by itself: no Blender."
+        },
+        {
+          "it": "Dove i dati non bastavano sono servite le foto: le facciate delle chiese vengono da Wikimedia Commons, e il campanile di Santa Caterina e il Castello Doria sono stati ricostruiti dalle loro proporzioni. Lampioni, panchine, fontane e alberi sono piazzati seguendo la mappa dei suoli.",
+          "en": "Where the data fell short, photos filled in: the church façades come from Wikimedia Commons, and Santa Caterina's bell tower and Castello Doria were rebuilt from their proportions. Street lamps, benches, fountains and trees are placed following the ground map."
+        },
+        {
+          "it": "Il tutto con la grafica di una PlayStation 1. E la città si può anche esplorare a piedi.",
+          "en": "All of it drawn like a PlayStation 1 game. And the town can be explored on foot, too."
+        },
+        {
+          "it": "Dati: © OpenStreetMap contributors (ODbL); Regione Campania, CTR/DBT 2020 (CC BY 4.0); Microsoft Global ML Building Footprints (ODbL); facciate: GiovAngri e altri autori, Wikimedia Commons.",
+          "en": "Data: © OpenStreetMap contributors (ODbL); Campania Region, CTR/DBT 2020 (CC BY 4.0); Microsoft Global ML Building Footprints (ODbL); façades: GiovAngri and other authors, Wikimedia Commons."
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,1120 @@
+=================================================================
+ NANDOR MUSEUM - DOCUMENTO DI DESIGN
+ versione 0.1 - 26 settembre 2026
+=================================================================
+
+ Stato: GREYBOX fatto il 26/09/2026 (sezione 13), provato
+ nel browser. Niente PS1, niente reperti, niente SHODAN.
+
+
+-----------------------------------------------------------------
+ 1. CONCEPT
+-----------------------------------------------------------------
+
+ Portfolio dei lavori di Nandor, da aprire nel browser.
+ E' un piccolo FPS: si cammina dentro una stazione spaziale
+ che e' anche un museo. Ogni lavoro ha la sua stanza (un
+ "modulo" agganciato alla stazione). I lavori futuri si
+ aggiungono agganciando moduli nuovi, senza toccare il
+ motore.
+
+ Chi lo apre e' un cliente o un recruiter: deve partire in
+ pochi secondi, essere chiaro senza istruzioni, e avere
+ sempre una via d'uscita verso una semplice lista.
+
+
+-----------------------------------------------------------------
+ 2. DECISIONI PRESE
+-----------------------------------------------------------------
+
+ 26/09/2026, dall'utente:
+   - stile visivo: il NOSTRO PS1 classico (quello di Angri,
+     Styx Diner, Vampaladin), ma declinato SCI-FI. Attenzione
+     a non farlo sembrare un diner o un dungeon (sezione 4)
+   - stanze aperte subito:
+       * Races of Valheim
+       * Mappa di Angri
+       * Styx Diner (il Vecchio e' parte di questa stanza,
+         non ha una stanza sua)
+   - SHODAN sta nell'ATRIO e accoglie i visitatori
+   - stanze CHIUSE con cartello "IN ALLESTIMENTO":
+       * Vampaladin
+       * arKITekt
+       * RTS Prototype
+       * Survive And Conquer
+   - mobile: NIENTE FPS, una semplice pagina elenco
+   - cartella del progetto: NandorMuseum
+   - hosting: si sceglie DOPO
+
+ 26/09/2026, seconda tornata (domande della sezione 12):
+   - lingua: ITALIANO + INGLESE con selettore a bandiere
+     all'avvio, come Styx
+   - pianta: ATRIO + SPINA (sezione 5)
+   - SHODAN col viso scansionato dell'utente PUO' andare
+     online (confermato dall'utente)
+   - modelli 3D: si ESPORTANO in .glb dai progetti Unity
+     (Angri in miniatura, il Vecchio in teca)
+   - contatti nell'atrio: EMAIL, THUNDERSTORE, SOCIAL /
+     ITCH.IO (indirizzi e link da ricevere). Niente GitHub
+   - musica: una traccia NUOVA ambient sci-fi per la
+     stazione, composta come quelle di Styx
+   - insegna: "NANDOR ORBITAL MUSEUM"
+
+ 26/09/2026, terza tornata (dopo il greybox):
+   - atrio: FINESTRONI sui muri est e ovest, si vede lo
+     spazio. Fuori ci andranno "altre cose" che l'utente
+     dira' piu' avanti
+   - SHODAN da ora si chiama NANDOR e sta in un PROIETTORE
+     OLOGRAFICO al CENTRO dell'atrio (non piu' uno schermo).
+     La sezione 6 va letta con questo nome
+   - Vampaladin e' APERTA (era chiusa per errore): ora 4
+     aperte, 3 chiuse
+   - conseguenza (mia): insegna, mappa e contatti passano
+     sul muro nord, attorno al varco della spina
+
+ 26/09/2026, fuori dalle finestre (fatto, src/space.js):
+   - finestra SINISTRA (ovest): un PIANETA inventato,
+     oceani verde-azzurri, continenti ocra e ruggine, poli
+     di ghiaccio, nuvole che girano, alone d'atmosfera
+   - finestra DESTRA (est): una LUNA grigia con crateri e
+     mari scuri
+   - ogni tanto passa una piccola NAVE (navetta, cargo con
+     container colorati, caccia), una corsia per finestra,
+     una ogni 7-19 secondi, luci di navigazione che
+     lampeggiano
+   - pianeta e luna sono illuminati da un "sole" loro,
+     non dalle luci della stazione
+   - ANELLO attorno al pianeta (richiesta dell'utente):
+     bande beige/ghiaccio con una divisione scura, ombra
+     del pianeta proiettata sopra; l'arco anteriore passa
+     davanti alla meta' alta del pianeta. Per farci stare
+     l'anello il pianeta e' stato allontanato a 170 m e
+     ingrandito (raggio 60 m): dalla finestra sembra uguale,
+     ma l'anello non taglia la corsia delle navi. Stelle
+     spostate a 500 m, vista della camera fino a 1000 m
+   - PIANTE VIOLA (richiesta dell'utente): tante foreste
+     come sulla Terra, ma viola. Climi terrestri: giungla
+     viola scura all'equatore, fascia di deserti ocra
+     attorno ai 25-30 gradi, foreste viola temperate piu'
+     su, savana malva di passaggio, tundra, poli di
+     ghiaccio, montagne grigie con poca neve in cima,
+     spiagge sottili. Sostituisce i "continenti ocra e
+     ruggine" di prima
+   - LUNA piu' lontana (richiesta dell'utente): da 93 a
+     140 m, stessa direzione e stessa grandezza, quindi
+     dalla finestra appare circa 2/3 di prima
+
+ 26/09/2026, mie proposte (accettate nel messaggio
+ precedente, da riconfermare se qualcosa stona):
+   - tecnologia: three.js + Vite, NON Unity WebGL
+     (peso e tempi di avvio, vedi sezione 3)
+   - stanze descritte da file di dati (room.json), il codice
+     le costruisce: aggiungere un lavoro = aggiungere una
+     cartella
+   - le camere stagne fra corridoio e stanza nascondono il
+     caricamento della stanza
+
+
+-----------------------------------------------------------------
+ 3. TECNOLOGIA
+-----------------------------------------------------------------
+
+ three.js + Vite, sito statico (una cartella dist/ da
+ caricare dove si vuole: GitHub Pages, Netlify, itch.io,
+ un dominio proprio). Node 24 c'e' gia' sul PC.
+
+ Perche' non Unity WebGL: build da 20-50 MB, avvio lento,
+ male su mobile. Un portfolio si gioca nei primi secondi.
+
+ Perche' three.js va bene: lo abbiamo gia' usato per SHODAN
+ (stessa libreria, stessi trucchi di shader), e SHODAN deve
+ vivere nell'atrio: stesso motore = si integra senza iframe.
+
+ Controlli (solo desktop):
+   - WASD + mouse, Shift corsa, E per interagire
+   - clic per catturare il mouse (Pointer Lock), Esc rilascia
+   - collisioni semplici contro box, niente motore fisico
+   - un tasto/pulsante "Vista elenco" sempre disponibile
+
+ Mobile e schermi touch: si apre direttamente la pagina
+ elenco (sezione 9). Stessi dati delle stanze, zero 3D.
+
+
+-----------------------------------------------------------------
+ 4. LOOK: PS1 SCI-FI
+-----------------------------------------------------------------
+
+ Base tecnica = il nostro strato PS1, rifatto in three.js:
+   - rendering a bassa risoluzione (circa 320x240, altezza
+     fissa, larghezza secondo lo schermo), ingrandito senza
+     filtro
+   - vertex snapping (il tremolio dei vertici) ACCESO
+   - NIENTE warping affine delle texture (tolto su Angri,
+     non torna)
+   - NIENTE dithering a schermo (tolto da Styx in poi)
+     [MIA LETTURA di "il nostro classico": se lo vuoi, e'
+     un interruttore]
+   - texture piccole (64x64 / 128x128), dipinte DA CODICE
+     come in DinerPaint, filtro nearest
+   - luci per vertice, nebbia come buio
+
+ Il rischio: PS1 + texture dipinte da codice = sembra il
+ diner o il dungeon di Vampaladin. Per spingerlo verso lo
+ spazio, riferimenti dell'epoca: System Shock (e SHODAN e'
+ gia' li'), Alien Resurrection PS1, le basi tecnologiche di
+ Doom PS1, Colony Wars.
+
+ Regole di stile proposte:
+   - palette FREDDA: grigi-azzurri, acciaio, bianco sporco.
+     Colore caldo solo come ACCENTO (strisce di pericolo,
+     spie arancioni). Ogni stanza ha UN colore suo
+   - materiali: pannelli con giunture e rivetti, griglie a
+     pavimento, tubi, strisce gialle/nere, scritte stencil
+     tipo "MODULO 03", portelloni con oblo'
+   - luce: poca luce ambiente, molte superfici EMISSIVE
+     (strisce luminose, schermi, spie) che alla bassa
+     risoluzione brillano da sole. Niente bloom
+   - schermi: righe di scansione e testo verde/ambra
+   - fuori dai finestroni: stelle + un pianeta in lento
+     movimento (skybox generato da codice)
+   - suono: ronzio della stazione (WebAudio generato),
+     sibilo delle porte, beep dei pannelli
+
+ [DA DECIDERE] che pianeta si vede dai finestroni. Proposta:
+ uno inventato, cosi' non deve somigliare a niente.
+
+
+-----------------------------------------------------------------
+ 5. PIANTA DELLA STAZIONE
+-----------------------------------------------------------------
+
+ Proposta: ATRIO + CORRIDOIO A SPINA. La spina e' fatta di
+ segmenti uguali, ognuno con due attracchi (sinistra e
+ destra). Per aggiungere moduli si allunga la spina: nessun
+ limite al numero di stanze, a differenza di un atrio ad
+ anello con N porte fisse.
+
+   [spazio]  finestrone in fondo alla spina
+       |
+   [Ang]--seg 2--[chiusa: RTS]
+       |
+   [Styx]-seg 1--[chiusa: Survive And Conquer]
+       |
+   [RoV]--seg 0--[chiusa: Vampaladin]
+       |
+   [   ATRIO + SHODAN   ]--[chiusa: arKITekt]
+       |
+   [arrivo: navetta attraccata, lo spawn]
+
+ L'ordine e' solo un esempio: lo decide stations.json.
+ Proposta: le tre stanze APERTE per prime, vicino all'atrio,
+ cosi' il visitatore trova subito contenuti veri.
+
+ Misure indicative (da provare camminando nel greybox):
+   - atrio circa 12 x 12 m, soffitto 5 m
+   - segmento di spina 8 m, largo 3 m, alto 3 m
+   - camera stagna 3 x 3 m, due portelloni
+   - stanza standard circa 10 x 12 m (room.json puo'
+     cambiarla)
+
+ Camera stagna: il primo portellone si apre, il visitatore
+ entra, il secondo si apre quando la stanza e' caricata
+ (luce rossa -> verde). Per le stanze CHIUSE il primo
+ portellone non si apre: nastro giallo/nero, cartello
+ "IN ALLESTIMENTO", e un pannello con il nome del lavoro e
+ una riga di descrizione.
+
+
+-----------------------------------------------------------------
+ 6. ATRIO E SHODAN
+-----------------------------------------------------------------
+
+ L'atrio e' la reception del museo:
+   - un grande schermo con SHODAN (la pagina del 26/09,
+     cartella Desktop\JotunnModStub-master\Shodan)
+   - pannello con il nome/logo di Nandor
+   - mappa della stazione (generata da stations.json)
+   - pannello contatti (email, link) [DA DARE: quali]
+
+ Come si integra SHODAN: la sua scena three.js viene
+ disegnata in una texture e mostrata sul grande schermo.
+ Cosi' il suo look (bloom, CRT) resta com'e' e non si
+ scontra col PS1 del resto. E' una scelta tecnica mia.
+
+ Comportamento proposto:
+   - quando il visitatore entra nell'atrio SHODAN lo saluta
+     (il clic per catturare il mouse sblocca l'audio: i
+     browser non fanno parlare una pagina prima di un clic)
+   - frasi brevi, sottotitolate sullo schermo
+   - poi tace; con E davanti allo schermo dice una frase
+     nuova (indicazioni sulle stanze, battute)
+
+ Problemi noti, VERIFICATI sulla pagina SHODAN:
+   - la voce viene dal browser del visitatore: su questo PC
+     l'unica voce maschile italiana e' Cosimo. Altri PC
+     avranno voci diverse o nessuna maschile. I sottotitoli
+     servono sempre
+   - la pagina offline pesa 8,3 MB, soprattutto la
+     scansione. Va caricata dopo l'atrio, non prima
+
+ [DA CONFERMARE] SHODAN e' fatta dalla scansione del TUO
+ viso. Su un portfolio pubblico il viso va su internet:
+ per me va bene solo se lo confermi esplicitamente.
+
+
+-----------------------------------------------------------------
+ 7. LE STANZE APERTE
+-----------------------------------------------------------------
+
+ Ogni stanza ha un suo colore e una sua scenografia, dentro
+ lo stesso guscio sci-fi. Idee, TUTTE DA CONFERMARE:
+
+ 7.1 RACES OF VALHEIM
+   - la mod pubblicata su Thunderstore
+   - colore: ambra/oro caldo, rune come scritte stencil
+   - proposta: un "archivio xenobiologico" con una teca per
+     ogni razza (pannello con nome, stemma, due righe)
+   - schermo grande con una clip di gameplay
+   - pannello con link a Thunderstore
+   - NIENTE modelli 3D presi da Valheim: sono di Iron Gate.
+     Solo nostri screenshot e video
+
+ 7.2 MAPPA DI ANGRI
+   - colore: verde "ologramma"
+   - proposta: un tavolo olografico al centro con la citta'
+     in miniatura (le mesh generate dall'importer), attorno
+     screenshot e confronto dati OSM -> gioco
+   - la miniatura richiede di ESPORTARE le mesh da Unity in
+     .glb (es. pacchetto UnityGLTF nel progetto Angri).
+     [DA DECIDERE] se va bene toccare il progetto Angri.
+     In alternativa: solo screenshot e video
+   - obbligo ODbL: scritta "(c) OpenStreetMap contributors"
+
+ 7.3 STYX DINER
+   - colore: giallo caldo nebbioso, come la sala del diner
+   - proposta: dal portellone si vede un pezzo di diner,
+     come se la stazione avesse "catturato" una stanza
+   - teca col Vecchio che striscia (export .glb da Unity,
+     stesso discorso di Angri)
+   - le musiche sono NOSTRE (composte il 25/09): possono
+     suonare nella stanza
+   - schermo con clip di gameplay
+
+ Tipi di reperto (il motore ne conosce pochi, le stanze li
+ combinano):
+   - pannello    testo + eventuale link
+   - quadro      screenshot con didascalia
+   - schermo     video in loop, muto, parte da vicino
+   - teca        modello .glb che ruota o e' animato
+   - sonoro      musica o audio che parte nella stanza
+
+
+-----------------------------------------------------------------
+ 8. DATI: AGGIUNGERE UNA STANZA
+-----------------------------------------------------------------
+
+ Struttura proposta:
+
+   NandorMuseum/
+     stations.json       ordine delle stanze nella spina
+     rooms/
+       races-of-valheim/
+         room.json       titolo, colore, testi, reperti
+         media/          screenshot, video, modelli .glb
+       angri/
+       styx-diner/
+       vampaladin/       solo room.json con stato "chiusa"
+     src/                il motore (non si tocca per
+                         aggiungere stanze)
+
+ Una stanza "chiusa" diventa aperta cambiando lo stato nel
+ suo room.json e aggiungendo i reperti. Il cartello IN
+ ALLESTIMENTO sparisce da solo.
+
+ La stessa fonte di dati genera la pagina elenco mobile:
+ nessun testo scritto due volte.
+
+
+-----------------------------------------------------------------
+ 9. PAGINA ELENCO (MOBILE)
+-----------------------------------------------------------------
+
+   - si apre da sola su telefoni e tablet touch
+   - sul desktop c'e' il pulsante "Vista elenco"
+   - una scheda per lavoro: titolo, immagine, descrizione,
+     link; le stanze chiuse come "in allestimento"
+   - stessa atmosfera (colori, font a monospazio), niente 3D
+
+
+-----------------------------------------------------------------
+ 10. MATERIALE CHE SERVE DA TE
+-----------------------------------------------------------------
+
+ Per ogni stanza aperta:
+   - 4-8 screenshot (PNG/JPG, anche grandi: li riduco io)
+   - 1-2 clip di 15-30 secondi (MP4, 720p basta, audio
+     non necessario)
+   - titolo, una frase di presentazione, 5-10 righe di
+     descrizione (o me le fai scrivere e le correggi)
+   - link (Thunderstore, itch, GitHub...)
+
+ Per le stanze chiuse: nome e una riga di descrizione.
+
+
+-----------------------------------------------------------------
+ 11. FASI DI LAVORO
+-----------------------------------------------------------------
+
+   1. questo documento: chiudere le domande della sez. 12
+   2. GREYBOX: atrio + 1 segmento di spina + 1 camera stagna
+      + 1 stanza vuota, cubi grigi, movimento e collisioni.
+      Si prova se camminare e' piacevole
+   3. strato PS1 in three.js (bassa risoluzione, snapping)
+   4. motore dei dati: stations.json, room.json, reperti,
+      stanze chiuse col cartello
+   5. estetica sci-fi: texture da codice, luci, cielo,
+      suoni
+   6. SHODAN nell'atrio
+   7. le tre stanze aperte con il tuo materiale
+   8. pagina elenco mobile
+   9. build e scelta dell'hosting
+
+
+-----------------------------------------------------------------
+ 12. DOMANDE APERTE
+-----------------------------------------------------------------
+
+ TUTTE CHIUSE il 26/09/2026: risposte nella sezione 2,
+ "seconda tornata". Restano da ricevere email e link.
+
+
+-----------------------------------------------------------------
+ 13. GREYBOX (26/09/2026)
+-----------------------------------------------------------------
+
+ Fatto e provato nel pannello browser (nessun errore in
+ console). Avvio: npm run dev nella cartella, poi
+ http://localhost:5190
+
+ File:
+   index.html            schermata iniziale con le bandiere
+   stations.json         ordine degli attracchi (null =
+                         attracco libero)
+   rooms/<id>/room.json  una cartella per lavoro, letta da
+                         sola (import.meta.glob di Vite)
+   src/main.js           scena, luce, ciclo
+   src/station.js        atrio, arrivo, spina, attracchi,
+                         mappa
+   src/kit.js            box, muri con vani, cartelli
+   src/door.js           portelloni scorrevoli
+   src/player.js         WASD + mouse, collisioni sul piano
+   src/lang.js           it/en, cartelli ridisegnati al
+                         cambio lingua
+
+ Com'e' fatto:
+   - arrivo a sud (portello navetta sigillato, spawn),
+     atrio 12x12x5 m, spina 3x3 m verso nord
+   - segmento di spina lungo = larghezza della stanza piu'
+     larga dei due lati + 2 m, due attracchi ciascuno
+   - 8 attracchi: 3 aperti, 4 chiusi, 1 libero (cartello
+     ATTRACCO LIBERO: mostra che la stazione si allarga)
+   - stanza aperta: camera stagna 3x3 m + stanza 10x12x4 m
+     (misure da room.json), striscia di luce nel colore
+     della stanza, titolo sul muro di fondo
+   - stanza chiusa: portellone con luce rossa bloccato,
+     nastro giallo e nero incrociato, cartello IN
+     ALLESTIMENTO; la stanza NON viene costruita
+   - atrio: insegna (ovest), segnaposto SHODAN sopra il
+     varco della spina (nord), mappa generata dagli
+     attracchi e contatti segnaposto (est)
+   - camminata 4,4 m/s, corsa 7,7 m/s (come Angri)
+
+ Le descrizioni delle stanze in room.json sono BOZZE mie,
+ da correggere.
+
+   a) lingua: solo italiano, solo inglese, o entrambe con
+      un selettore (come Styx)?
+   b) pianta: va bene atrio + spina (sezione 5)?
+   c) SHODAN: confermi che il tuo viso puo' andare online?
+   d) modelli 3D di Angri e del Vecchio: esportiamo .glb
+      da Unity (tocca quei progetti) o solo immagini/video?
+   e) contatti nell'atrio: quali (email, GitHub, altro)?
+   f) musica: le tracce di Styx solo nella sua stanza, o
+      una musica d'ambiente generale per la stazione?
+   g) nome visibile: "Nandor Museum" come titolo in
+      insegna, o altro?
+
+
+-----------------------------------------------------------------
+ 14. STRATO PS1 (26/09/2026)
+-----------------------------------------------------------------
+
+ Fatto e provato nel pannello browser. File: src/psx.js.
+
+   - la scena si disegna in un render target a 240 righe
+     (larghezza secondo lo schermo), lineare a mezza
+     precisione, poi si copia sullo schermo senza filtro
+   - colori ridotti a 32 livelli per canale nella copia
+   - vertex snapping: a ogni materiale, anche ai nostri
+     shader (pianeta, anello, atmosfera) e alle navi che
+     nascono dopo, si aggiunge l'aggancio dei vertici alla
+     griglia dei pixel
+   - NIENTE warping affine, dithering Bayer 4x4 presente
+     ma SPENTO (new PSX(renderer, { dither: true }))
+   - texture dei cartelli e dei pianeti: pixel netti da
+     vicino
+   - tasto P: PS1 acceso / spento, per confronto
+
+ Due trappole trovate (VERIFICATE):
+   - dentro il render target lineare la trasparenza si
+     mescola in lineare: il vetro all'8% copriva lo spazio
+     di un velo grigio-blu. Ora e' all'1,5%. Stessa cosa
+     vale per ogni futuro materiale trasparente
+   - three converte in sRGB il colore di sfondo anche nel
+     render target: psx.render lo compensa
+
+ LEGGIBILITA' (risolta lo stesso giorno). L'utente: "i
+ pannelli di testo glitchano e sono illeggibili, sfocati,
+ devi avvicinarti troppo". Cause: il vertex snapping li
+ faceva tremare, la riduzione a 240 righe li sfocava, i
+ caratteri erano piccoli. Soluzione:
+   - i cartelli (tutto cio' che crea sign() in kit.js)
+     stanno sul layer CRISP e restano FUORI dal PS1: niente
+     snapping, disegnati DOPO la copia PS1, a piena
+     risoluzione, filtro lineare con mipmap e anisotropia
+   - per nasconderli dietro gli oggetti, prima di loro si
+     rifa' la profondita' della scena a piena risoluzione
+     (senza gli oggetti trasparenti: vetro, fascio
+     dell'ologramma, nuvole, anello)
+   - canvas fino a 2048 px e 320 px/m, pannelli degli
+     attracchi 2,3 x 1,4 m (erano 1,6 x 1,0), caratteri
+     piu' grandi; le frasi lunghe vanno a capo invece di
+     rimpicciolirsi
+   - trappola VERIFICATA: con uno sfondo a colore three
+     pulisce lo schermo a ogni render anche con autoClear
+     spento; durante le passate sopra la copia PS1 lo
+     sfondo deve essere null
+   - CORREZIONE (stesso giorno, segnalata dall'utente): i
+     testi passavano DAVANTI all'ologramma, perche' gli
+     oggetti trasparenti erano esclusi dalla profondita'.
+     Ora i cartelli segnano i loro pixel nello stencil e
+     subito dopo gli oggetti trasparenti si ridisegnano
+     SOLO su quei pixel: l'ologramma torna davanti al
+     testo, e altrove non raddoppia (e' gia' nell'immagine
+     PS1). Il renderer ora ha lo stencil buffer
+ Il mondo resta PS1, le scritte sono l'unica cosa in alta
+ risoluzione. Il pannello HTML con E per i testi lunghi
+ dei reperti resta una proposta per la fase dei reperti.
+
+
+-----------------------------------------------------------------
+ 15. ESTETICA SCI-FI (26/09/2026)
+-----------------------------------------------------------------
+
+ Fatta e provata nel pannello browser. File nuovi:
+ src/textures.js, src/details.js, src/audio.js.
+
+ Texture (dipinte da codice, seme fisso, filtro nearest):
+   - muro 64x48 px = 2 x 1,5 m: due pannelli smussati con
+     rivetti, feritoie, spia arancio, fascia bassa scura
+     con griglia
+   - pavimento 64 px = 2 m: lamiera zigrinata, piastre da
+     1 m con bulloni
+   - soffitto: pannelli con griglia di aerazione
+   - anta del portellone: pannello chiaro, scanalature,
+     chevron gialli e neri in basso
+   - metallo scuro (cornici, costole, colonne) e strisce
+     di pericolo gialle e nere
+   - UV nello spazio del mondo (worldUV): la texture
+     scorre continua da un pezzo di muro all'altro
+   - muri delle stanze velati del colore della stanza
+
+ Struttura e luci:
+   - luce ambiente abbassata (0,9 invece di 2,2), poi
+     luci puntiformi: 4 negli angoli dell'atrio, una per
+     segmento di spina, per ogni stanza una del suo colore
+     e due fredde; una azzurra sull'ologramma
+   - spina: due strisce luminose sul soffitto, tubi negli
+     angoli alti (uno acciaio, uno arancio), costole ogni
+     segmento (con collisione)
+   - portelloni: cornice a strisce di pericolo, strisce di
+     pericolo a pavimento sulle soglie; camere stagne con
+     striscia luminosa
+   - atrio: colonne negli angoli, anello di luce sul
+     soffitto sopra l'ologramma, anello tenue a pavimento
+   - stanze: strisce luminose a pavimento del colore della
+     stanza lungo i muri laterali, costole ogni 2,5 m
+
+ Suoni (WebAudio, nessun file, partono al clic sulle
+ bandiere, tasto M per silenziare):
+   - ronzio della stazione: rumore basso che respira +
+     55 Hz e 110,4 Hz che battono
+   - sibilo pneumatico + colpo sordo quando un portellone
+     si apre o si chiude, volume per distanza (0 oltre 16 m)
+   - doppio bip "accesso negato" arrivando davanti a una
+     stanza chiusa (non per il portello della navetta,
+     accanto allo spawn)
+   - NON sentiti da me: verificato solo che il contesto
+     audio parte e che gli agganci scattano
+
+ Aggiustamenti dopo le prime foto: anello a pavimento
+ allargato (a 240 righe si spezzava), luci delle stanze
+ piu' forti, testo che va a capo e supera l'altezza del
+ cartello ora si riduce, i due nastri incrociati non si
+ contendono piu' i pixel.
+
+ Da fare piu' avanti: la musica ambient nuova (decisa in
+ sezione 2), il fondo della spina come vera finestra.
+
+ CORREZIONE (26/09/2026, dall'utente): "troppo System
+ Shock 2 e troppo poco System Shock remake, piu'
+ colorato, verde, magenta". Il grigio-blu freddo della
+ sezione 4 NON vale piu'. Nuova palette:
+   - superfici SCURE con un tono viola (muri, pavimento,
+     soffitto, portelloni, metallo delle cornici)
+   - neon VERDE #3dff8a e MAGENTA #ff3bd4 come luci
+     principali; luce di riempimento lilla
+   - mappe emissive nelle texture: schermini verdi con
+     righe di codice e spia verde nei muri, LED magenta
+     nella fascia bassa, griglie del soffitto magenta,
+     fessure verdi sui bordi delle ante
+   - spina: strisce del soffitto magenta, strisce verdi
+     alla base dei muri, luci che alternano magenta e
+     verde segmento per segmento
+   - atrio: angoli alternati magenta/verde, anello del
+     soffitto magenta, anello a pavimento verde
+   - Nandor (l'ologramma) diventa VERDE
+   - cornici dei portelloni: metallo scuro + filo di neon
+     verde (il giallo-nero resta solo su soglie e nastri)
+   - cartelli: fondo viola scuro, testo verde chiaro,
+     insegna verde con bordo magenta, contatti magenta
+   - le stanze tengono il loro colore; luci delle stanze
+     rialzate perche' i muri sono piu' scuri
+
+
+-----------------------------------------------------------------
+ 16. NANDOR NELL'OLOGRAMMA E PANNELLO CON E (26/09/2026)
+-----------------------------------------------------------------
+
+ Richiesta dell'utente: "il nostro Nandor" nell'ologramma al
+ centro dell'atrio; sotto, un pannello che con E spiega come
+ abbiamo fatto il volto (3D Snap su iPhone) con una foto del
+ modello 3D dal lato non deformato, la guancia SINISTRA.
+ Fatto e provato nel pannello browser.
+
+ Nandor (src/nandor.js):
+   - stessa scansione e stesso shader della pagina SHODAN
+     (Desktop\JotunnModStub-master\Shodan): landmark, matrice
+     che raddrizza la scansione, rampa di verdi, rilievo,
+     circuiti, occhi accesi, bordo che si sfalda, glitch
+   - volto alto 1,15 m, centro a 2,35 m, fascio allungato a
+     2,7 m. Prima prova a 0,62 m: a 240 righe erano ~20 pixel,
+     una macchia verde
+   - NIENTE fil di ferro (VERIFICATO: a 240 righe le sue
+     linee saturano il volto di verde pieno), e delle
+     particelle solo quelle che volano via dal bordo, diradate
+   - la testa si gira lentamente verso il visitatore
+   - la bocca (uOpen) c'e' nello shader ma per ora non parla
+   - asset: public/nandor/face.obj (900 KB) + diffuse.jpg
+     (1024 px, 150 KB, ridotta dai 2048 px / 5 MB originali)
+
+ Foto del modello (tools/nandor-photo.html, solo sviluppo):
+   - la scansione grezza con le texture originali (colore,
+     normali, occlusione, in assets-src/nandor/, fuori dalla
+     build), sfondo viola; shoot(angolo, nome) la salva in
+     public/nandor/ tramite un endpoint di Vite attivo solo
+     in sviluppo (POST /__save in vite.config.js)
+   - VERIFICATO a occhio con tre scatti (sinistra, destra,
+     fronte): la guancia sinistra e' pulita e continua, la
+     destra e' tagliata e frastagliata vicino al naso, con
+     l'attaccatura del naso deformata. L'utente aveva ragione
+   - usata: public/nandor/photo-left.jpg (angolo +55 gradi)
+
+ Pannello con E (src/interact.js, src/panels.js):
+   - leggio davanti all'ologramma, lato sud, con schermo
+     inclinato "NANDOR / come e' nato il suo volto / [E] LEGGI"
+   - entro 2,4 m e guardandolo compare "[E] Leggi: ..." in
+     basso; E apre un pannello HTML a piena risoluzione (testo
+     + foto + didascalia), E o Esc lo chiudono; mentre e'
+     aperto il visitatore e' fermo
+   - il sistema e' generico: servira' per i reperti
+   - I TESTI sono BOZZE mie in prima persona dell'autore, da
+     correggere (panels.js). Non so come funziona 3D Snap nel
+     dettaglio: l'ho descritto solo come "un'app per iPhone
+     che trasforma una ripresa del viso in un modello 3D"
+
+ Build di prova: ok (dist con nandor/ dentro, tools e
+ assets-src esclusi).
+
+ Seconda tornata (26/09/2026, dall'utente: "testa ancora
+ piu' grande e distorsione piu' accentuata solo sui
+ bordi"):
+   - volto 1,6 m (era 1,15), centro a 2,75 m, fascio 3,3 m
+   - EDGE_WARP nel vertex shader (volto e particelle): peso
+     k = smoothstep(0.55, 1.0, distanza dal centro), quindi
+     il centro del viso non si muove. Sul bordo: il contorno
+     si gonfia e respira (rumore sull'angolo), ondeggia di
+     lato, si strappa a fasce orizzontali 11 volte al
+     secondo. Intensita' in uWarp (1 = com'e' ora)
+   - nel frammento: il bordo si disfa a pixel piu' in dentro,
+     brilla di piu', lampi magenta/ciano solo dove e' distorto
+
+
+-----------------------------------------------------------------
+ 17. NANDOR PARLA (26/09/2026)
+-----------------------------------------------------------------
+
+ Richiesta dell'utente: entrando nell'atrio Nandor dice
+ "Benvenuto, viaggiatore" / "Welcome, traveler", voce
+ MASCHILE, in italiano e inglese; permesso di scaricare un
+ pacchetto voce.
+
+ Scelta: NON la sintesi vocale del browser (dipende dalle
+ voci del PC di chi visita: su questo PC l'unica maschile e'
+ Cosimo, italiano). Le due frasi sono generate UNA volta,
+ offline, con Piper, e spedite come file:
+   public/nandor/voice-it.wav  (1,98 s, 16 kHz, 63 KB)
+   public/nandor/voice-en.wav  (2,19 s, 22 kHz, 96 KB)
+ rallentate del 15% (--length_scale 1.15).
+
+ Scaricato in tools/piper/ (113 MB, FUORI dalla build):
+   - piper_windows_amd64.zip 2023.11.14-2 (22 MB), GitHub
+     rhasspy/piper
+   - it_IT-riccardo-x_low (28 MB): unica voce maschile
+     italiana; dataset M-AILABS (licenza permissiva),
+     addestrata da zero; qualita' bassa (16 kHz)
+   - en_US-norman-medium (63 MB): dataset di PUBBLICO
+     DOMINIO (LibriVox), addestrata da zero
+   Scartate per licenza: en_GB alan (dataset "All Rights
+   Reserved"), en_US ryan (CC BY-NC-SA, non commerciale).
+   Rigenerare: echo "testo" | tools/piper/piper/piper.exe
+     -m tools/piper/<voce>.onnx --length_scale 1.15 -f out.wav
+
+ In gioco (audio.js, main.js, nandor.js):
+   - catena "da ologramma": voce pulita + due eco corte
+     (85 e 170 ms) filtrate come una radio + un velo di
+     modulazione ad anello a 38 Hz, poi compressore
+   - volumi pareggiati per lingua (it 0,45, en 1,3): livello
+     medio misurato 0,118 contro 0,123
+   - labiale: il volume della voce apre la bocca (uOpen gia'
+     nello shader) e fa pulsare gli occhi
+   - sottotitolo verde a schermo per 3 secondi
+   - parte entrando nell'atrio, al massimo una volta ogni
+     30 secondi; lingua = quella scelta con le bandiere
+   - NON ascoltato da me: verificato che parte, che il
+     sottotitolo compare e che il livello segue le sillabe
+
+ CORREZIONE (26/09/2026, dall'utente: "distorsione intorno
+ a TUTTA la testa, non solo un lato"). Causa: il peso della
+ distorsione era la distanza da un'ELLISSE ideale, ma la
+ scansione non e' un'ellisse: a sinistra arriva a orecchio e
+ capelli, a destra (e in alto/in basso) finisce prima con un
+ taglio netto, quindi solo un lato entrava nella zona
+ distorta. Ora:
+   - al caricamento edgeDistance() trova il bordo VERO della
+     mesh (lati di un solo triangolo, vertici fusi per
+     posizione), ignora i buchi interni vicino al centro, e
+     scrive per ogni vertice la distanza dal bordo
+     (attributo aEdge)
+   - peso = max(ellisse, 1 - smoothstep(0, uEdgeW, aEdge)),
+     uEdgeW = 20% dell'altezza del viso: circa il 10% dei
+     vertici e' nella fascia distorta, tutto intorno
+   - lo stesso peso fa disfare a pixel e brillare il bordo
+     vero, e fa partire le particelle da li'
+   - effetto collaterale corretto: pezzi scuri del bordo,
+     stirati, coprivano da opachi l'anello del soffitto
+     (schegge nere). Nella zona distorta i pixel quasi neri
+     ora vengono scartati
+
+
+-----------------------------------------------------------------
+ 18. STANZA DI VAMPALADIN (26/09/2026)
+-----------------------------------------------------------------
+
+ Richiesta dell'utente: pareti e soffitto da dungeon, al
+ centro una statua di Vampaladin, in fondo un cabinato che in
+ futuro fara' provare il livello, vicino alla statua un
+ pannello con E sulle caratteristiche del gioco, scritto da
+ qualche parte che le MUSICHE SONO DI KANYM, torce e oggetti
+ presi dal dungeon. Fatto e provato nel pannello browser.
+
+ Estrazione dal progetto Unity (tools/vampaladin-export.mjs,
+ senza aprire Unity):
+   - legge i Mesh .asset (YAML testuale: posizione, normale,
+     colore float, indici 16 bit) e le scene Prova.unity e
+     Dungeon.unity; converte da Unity (sinistrorso) a three
+   - statua: i 19 pezzi del crociato fusi in un mesh + occhi
+     a parte. Nella scena il rig e' A RIPOSO (braccia dritte,
+     spada parcheggiata di traverso): il convertitore mette
+     una POSA DA STATUA: spada piantata davanti (elsa a
+     1,17 m, punta sul piedistallo), IK a due ossa per le
+     mani sull'impugnatura (gomiti aperti), testa china 10
+     gradi. Trappola VERIFICATA: nella scena ci sono anche i
+     nemici con le stesse ossa (BraccioDx...), la ricerca per
+     nome va limitata ai figli del Crociato
+   - i 23 arredi di Generated/Arredi + le loro parti luminose;
+     gli agganci delle fiamme (_Luce) letti da Dungeon.unity
+   - le texture muro_pietra.png e pietra_grigia.png
+   - uscita: rooms/vampaladin/media/ (json + bin 580 KB)
+
+ Motore dei reperti (nuovo, generico, per tutte le stanze):
+   - src/exhibits.js: reperti in room.json "exhibits" con
+     coordinate DELLA STANZA (u dalla porta, v a destra, rot
+     0 = guarda la porta): la stessa disposizione vale per
+     stanze a ovest e a est. Tipi: model, prop, pedestal,
+     beams, lectern, arcade. Collisioni dai riquadri
+   - src/models.js (pacchetti json+bin), src/media.js (file
+     in rooms/<id>/media/, inclusi da Vite nella build)
+   - room.json "theme": "dungeon" + "textures": muri,
+     pavimento, soffitto di pietra, niente neon/costolature,
+     luce calda di fondo
+   - room.json "panels": testi dei pannelli con E della
+     stanza (uniti a quelli fissi in main.js)
+
+ Disposizione (rooms/vampaladin/room.json):
+   - centro: cerchio rituale con candele accese, piedistallo
+     di pietra, statua in pietra grigia con occhi rossi, due
+     candelabri ai lati
+   - leggio davanti alla statua: "VAMPALADIN / le
+     caratteristiche del gioco / [E] LEGGI"
+   - fondo: cabinato arcade (mobile nero e rosso, leva e
+     pulsanti, insegna luminosa, schermo "il primo livello
+     sara' giocabile qui / PROSSIMAMENTE / musiche di Kanym")
+     fra due torce
+   - tre torce per muro laterale con luce che tremola
+     (colore e portata delle torce del dungeon)
+   - libreria, rastrelliera, baule, sacchi, calderone,
+     barili, casse; travi di legno sul soffitto
+   - KANYM: nel pannello con E ("Musiche di Kanym.") e sullo
+     schermo del cabinato
+
+ Testi del pannello: BOZZE mie dalla memoria del progetto,
+ da correggere. Il cabinato per ora non fa niente.
+
+ Musica (26/09/2026, l'utente: "metti la musica di Kanym
+ nella stanza"):
+   - rooms/vampaladin/media/musica-kanym.mp3 = MUSIC-1.mp3
+     del progetto Vampaladin (2,9 MB)
+   - room.json "music" + "musicVolume" (0,45): generico,
+     vale per qualsiasi stanza
+   - audio.updateMusic: in streaming (elemento <audio> nel
+     grafo WebAudio, sotto il volume generale: M la
+     silenzia), sale in 1,5 s entrando nella stanza, sfuma
+     uscendo e si mette in pausa, riprende da dove era
+   - VERIFICATO: dentro suona a 0,45, fuori torna a 0 e si
+     ferma. Non ascoltata da me
+
+
+-----------------------------------------------------------------
+ 19. IL LIVELLO DI VAMPALADIN NEL CABINATO (26/09/2026)
+-----------------------------------------------------------------
+
+ Richiesta dell'utente: E sul cabinato -> la telecamera entra
+ nello schermo e parte il livello; finito il livello o con Esc
+ si torna indietro. Decisioni: alla MORTE "Sei morto" con due
+ scelte (riprova / torna al museo); gli script li scrivo io,
+ la build la lancia l'utente dal menu di Unity.
+
+ Scelta tecnica: build WebGL di Unity in un iframe, caricata
+ solo quando si preme E (15-30 MB stimati). Riscrivere il
+ livello in three.js: scartato.
+
+ Lato Unity (progetto Vampaladin, VERIFICATO che compila fuori
+ da Unity: gioco, variante UNITY_WEBGL, editor):
+   - Assets/Plugins/WebGL/MuseumBridge.jslib: postMessage al
+     museo { source: 'vampaladin', type: 'done' | 'exit' }
+   - Scripts/MuseumBridge.cs: attivo solo in WebGL (si crea
+     da solo, sopravvive ai ricaricamenti), Esc o View/Select
+     del pad -> exit; lingua dal ?lang=en del museo
+   - PlayerHealth: nel museo "Sei morto / You died" con
+     "Invio: riprova   Esc: torna al museo" (pad A / B)
+   - LevelExit: nel museo "Livello completato", poi un tasto
+     -> torna al museo
+   - fuori dal museo (Windows, editor) tutto come prima
+   - VampBuild: menu "Vampaladin/5 - Esporta per il museo
+     (WebGL)": rigenera il dungeon, template PROJECT:Museo,
+     Gzip + decompression fallback (funziona su qualsiasi
+     hosting statico), esporta in
+     NandorMuseum/public/games/vampaladin
+   - Assets/WebGLTemplates/Museo/index.html: gioco a tutta
+     finestra, caricamento nero con VAMPALADIN rosso e barra,
+     fuoco della tastiera dato subito al gioco
+   - SERVE il modulo "Web Build Support" in Unity Hub (sul PC
+     c'e' solo il supporto Windows). Il menu avvisa se manca
+
+ Lato museo (src/game.js, provato con un finto gioco):
+   - room.json dell'arcade: "game": "games/vampaladin/
+     index.html"; prompt "[E] Gioca: VAMPALADIN"
+   - E -> se la build manca, avviso con le istruzioni; se
+     c'e': telecamera in 1,1 s davanti allo schermo, lampo di
+     disturbo, iframe a schermo intero (?lang=it|en) con
+     pulsante "ESC esci"; il museo smette di disegnare,
+     audio del museo e musica della stanza in pausa
+   - 'done' / 'exit' / Esc / pulsante -> iframe rimosso (Unity
+     non resta acceso), lampo, telecamera indietro in 0,9 s
+     fino alla posa di partenza; col Pointer Lock serve un
+     clic per rientrare (compare il menu)
+   - trappola trovata: Object3D.lookAt punta +z, le telecamere
+     guardano -z: la rotazione si calcola con Matrix4.lookAt
+
+ Prima build (26/09/2026, fatta dall'utente col menu 5):
+   - public/games/vampaladin: 18 MB (data 7,9 MB, wasm 9,9 MB,
+     Gzip con decompressione di riserva: il server di Vite
+     la serve senza configurazione)
+   - VERIFICATO nel pannello browser: la pagina carica, il
+     livello parte (stanza del sarcofago, crociato, calice),
+     nessun errore; solo avvisi innocui su shader di
+     post-processing esclusi (profondita' di campo, Panini,
+     FSR: Vampaladin non li usa)
+   - NON verificato: Esc/morte/fine livello dentro Unity e
+     l'ingresso animato con la build vera. Il pannello
+     browser era nascosto: il browser ferma requestAnimation-
+     Frame, quindi ne' l'animazione della telecamera del
+     museo ne' gli Update di Unity avanzano. Da provare
+     dall'utente in Chrome
+
+ Schermo del cabinato (26/09/2026, dall'utente: "dice ancora
+ coming soon, metti solo PLAY"): ora mostra solo PLAY, grande,
+ magenta. Il credito a Kanym resta nel pannello con E del
+ leggio (e l'insegna in alto dice sempre VAMPALADIN).
+
+ Musica, CORREZIONE (26/09/2026, dall'utente: "quando lasci
+ la stanza ferma la musica"). Non riprodotto nel pannello
+ (era nascosto: ciclo fermo). La logica, simulata, sfumava e
+ metteva in pausa; causa probabile: quando il museo non viene
+ disegnato (scheda in secondo piano, pannello nascosto) il
+ ciclo si ferma ma l'elemento <audio> continua da solo. Ora:
+   - uscendo sfuma in 0,5 s (era 1,5) e si FERMA, riavvolta:
+     al rientro riparte da capo (prima riprendeva)
+   - pagina nascosta (visibilitychange) -> tutte le musiche
+     ferme subito, senza aspettare il ciclo
+   - VERIFICATO simulando i fotogrammi: dopo 0,6 s fuori
+     livello 0, in pausa, tempo 0
+
+
+-----------------------------------------------------------------
+ 20. STANZA DI ANGRI PS1 (26/09/2026, IN CORSO)
+-----------------------------------------------------------------
+
+ Richiesta: al centro un tavolo col modello 3D di tutta la
+ citta', il solito pannello con E (solo un piccolo cenno al
+ fatto che e' esplorabile), in fondo il cabinato "coming soon".
+
+ Fatto e visto nel pannello browser:
+   - tools/angri-export.mjs: dal progetto Unity (senza Unity)
+     ricostruisce gli edifici dai tetti piatti + muri estrusi
+     (475 edifici, 6 chiese in rosso mattone riconosciute
+     dalla minimappa, 38.500 vertici invece di 405.000),
+     terreno ricampionato ogni 8 m con la minimappa del gioco
+     come texture, 1075 alberi come coni. 3 MB in tutto
+   - motore: UV nei pacchetti, model con map/scaleY/piu' mesh,
+     tipo "table" (bordo luminoso + luce neutra da vetrina),
+     arcade coi colori della stanza
+   - room.json: tavolo 3,2 m, plastico largo 3 m, esagerazione
+     verticale 2, leggio col pannello (bozza, con crediti dati
+     OSM/Regione Campania/Microsoft/Wikimedia obbligatori),
+     cabinato verde ANGRI PS1 / COMING SOON
+
+ Da fare alla ripresa: controllare dall'alto che la minimappa
+ combaci con gli edifici, rivedere luce/contrasto del plastico
+ (con la luce verde della stanza appare slavato), provare il
+ pannello e vedere il cabinato; poi memoria.
+
+
+-----------------------------------------------------------------
+ 21. STANZA DI STYX DINER (26/09/2026)
+-----------------------------------------------------------------
+
+ Richiesta: arredamento della sala da pranzo del diner; in
+ fondo il passavivande con la cucina visibile; in cucina,
+ dietro il tavolo, la demonessa; la porta aperta con la mucca
+ che si vede; al centro due teche di vetro col Vecchio e col
+ crociato (senza il suono della spada) in una bella posa; sul
+ bancone il gatto che dorme rivolto verso l'ingresso; un
+ pannello all'ingresso su Styx Diner e uno per statua con il
+ disegno originale e il processo; niente vicino al gatto e
+ alla demonessa. Fatto e visto nel pannello browser.
+
+ Estrazione (tools/unity-yaml.mjs = libreria nuova per mesh
+ con piu' materiali/stream, scene, prefab, materiali;
+ tools/styx-export.mjs):
+   - la sala vera e' 15,4 x 30 m: tagliata sul piano z = 11
+     (fra due file di separe'), triangoli SPEZZATI dal taglio;
+     collisioni da ogni pezzo d'arredo + pareti laterali
+   - cucina con tutti gli oggetti; porta con l'oblo'
+     spalancata (95 gradi) verso il cortile
+   - cortile + fondale chiuso di cielo: la texture cielo.png
+     e' BIANCA, il tramonto nel gioco sta nei colori dei
+     vertici della cupola -> sfumatura arancio/viola nei
+     vertici (la cupola vera avrebbe coperto la stazione)
+   - personaggi: gatto nella posa "dorme" ricostruita dalle
+     formule di CatVisitor.Pose (corpo a 10 cm, testa china,
+     zampe ripiegate con la stessa IK, coda arrotolata, occhi
+     chiusi, una Z), demonessa e crociato nella posa dei
+     prefab (il builder li salva gia' in posa; al crociato
+     tolto il cucchiaio), Vecchio: mesh con scheletro nella
+     posa di costruzione (quella del disegno)
+   - disegni: npc1.jpg (progetto) e Pictures/Screenshots/
+     crociato.jpg; 4,6 MB in tutto (83 materiali, 78 texture)
+
+ Museo:
+   - room.json "shell": "unity": il museo fa solo la parete
+     d'ingresso col portellone (intonaco del diner), il resto
+     e' il set; stanza 15,4 x 16,2 m (la spina si allunga)
+   - model con materiali del pacchetto, offset, yaw,
+     collisioni dal pacchetto; nuovi reperti "vitrine" (teca)
+     e "light"; immagini dei pannelli dai media della stanza
+   - MUCCA: dalla sala, attraverso il passavivande, le linee
+     di vista passano dalla porta (angolo ovest) verso il
+     muro ovest del cortile; la mucca del gioco (nel recinto)
+     non si vedeva. Nel museo sta subito dietro la porta,
+     testa verso la cucina: sbircia dal vano
+   - demonessa spostata di 65 cm a sinistra (sempre dietro il
+     tavolo) perche' l'ala copriva la porta
+   - teca del crociato alta 2,58 m (le fiamme della spada
+     uscivano dal tetto)
+   - nessun suono: niente spada, niente fuoco
+   - testi dei tre pannelli: BOZZE mie
+
+ CORREZIONE (26/09/2026, dall'utente: "un muro invisibile
+ non mi fa andare oltre le prime due porte"). Causa: ogni
+ modello senza noCollide riceve anche una collisione grande
+ quanto il suo ingombro; per il set del diner (sala) era un
+ riquadro di 11 x 15 m, e senza l'offset finiva di traverso
+ sulla spina al secondo segmento. Ora il riquadro d'ingombro
+ non si aggiunge ai modelli con "colliders" (hanno le loro
+ collisioni pezzo per pezzo) e, quando c'e', tiene conto
+ dell'offset. VERIFICATO: sull'asse della spina resta solo
+ il muro di fondo.
+
+
+-----------------------------------------------------------------
+ 22. CONTATTI INTERATTIVI (26/09/2026)
+-----------------------------------------------------------------
+
+ Richiesta: il pannello contatti diventa interattivo; aperto
+ da' la mail e il link di Thunderstore, "e basta per ora".
+   - cartello nell'atrio: "CONTATTI / email · Thunderstore /
+     [E] APRI"; zona interattiva davanti (raggio 2,6 m)
+   - pannello "contatti" in panels.js (links: true):
+       Email         ferdinandosmaldone89@gmail.com (mailto:)
+       Thunderstore  https://thunderstore.io/c/valheim/p/Nandor/
+                     (nuova scheda)
+   - un pannello coi link LIBERA il mouse all'apertura (per
+     cliccarli) e non si chiude per questo; chiuso con E/Esc,
+     compare il menu: un clic per ricatturare il mouse
+   - le altre voci dei contatti decise in sezione 2 (social,
+     itch.io) restano fuori finche' l'utente non le da'
+
+
+-----------------------------------------------------------------
+ 23. STANZA DI RACES OF VALHEIM (26/09/2026)
+-----------------------------------------------------------------
+
+ Dalla pianta disegnata dall'utente (ingresso in basso al
+ centro): 1 angolo in basso a sinistra, 2 fascia sinistra
+ sopra la 1, 3 fascia di fondo larga quanto la stanza, 4
+ fascia destra, corridoio libero al centro. Stanza 10 x 14 m.
+ Coordinate (u dalla porta, v a destra): 1 = u 0..3,35 /
+ v -5..-1,7; 2 = u 3,35..10,3 / v -5..-1,7; 3 = u 10,3..14;
+ 4 = u 0..10,3 / v 2,6..5.
+
+ CORREZIONE dell'utente: le razze sono DIECI, non undici
+ (Aswid, Draugh, Dvergar, Fenrir, Furling, Skadi, Skeleton,
+ Sverm, Trenta, Trol). Tagline corretta.
+
+   - tema "wood": locanda di legno, assi dipinte da codice
+     (makeWoodTextures), travi, torce e casse/barili presi dal
+     pacchetto di Vampaladin (room.json "packRoom")
+   - sezioni separate da ringhiere di legno con aperture verso
+     il corridoio; la 4 chiusa col nastro giallo e nero
+   - insegne sopra le sezioni: LE ORIGINI, LO SVILUPPO, IL
+     FUTURO
+   - 1: quadro "Fenrir Curse" + piedistallo LE ORIGINI con E:
+     Fenrir Curse (Thunderstore 19/07/2026, cinque giorni prima
+     di RoV del 24/07), l'umile origine: una maledizione sola
+   - 2: tre quadri + leggio LO SVILUPPO con E: il reverse
+     engineering (Mono.Cecil su assembly_valheim.dll, Harmony/
+     BepInEx/Jotunn, le creature base prese dai modelli del
+     gioco, la trappola del ModelBorrow)
+   - 3: tabellone "RACES OF VALHEIM / download su Thunderstore
+     / 17.430 / versione 1.4.24" + due quadri ai lati
+   - 4: IL FUTURO, in allestimento: cartello con la quest dei
+     Batrider e della strega Nargilien e il gioco stand-alone
+   - testi dei pannelli: BOZZE mie
+
+ QUADRI: reperto "painting", tela sul layer CRISP, GIF
+ animate con gifuct-js (MIT; e' CommonJS: Vite ne espone
+ solo il default). "src": "media/<file>.gif" nel room.json;
+ senza src mostrano "GIF in arrivo". VERIFICATO con una GIF
+ di esempio. Sul Desktop c'e' una cartella gif/ con file di
+ RoV (aswidchallenge, brute, corna scheletro, reverse
+ batrider, skeleton march, skeleton metal, trenta wave,
+ trentecheers): NON usati, aspetto che l'utente li assegni.
+
+ DOWNLOAD: Thunderstore non manda CORS (verificato su tutte
+ le API), quindi il browser di un altro sito non puo'
+ leggerle. tools/update-downloads.mjs scrive media/
+ downloads.json e parte da solo prima di ogni build
+ (npm "prebuild"): il sito mostra il numero dell'ultima
+ pubblicazione. Per un numero davvero dal vivo servira' un
+ piccolo proxy sull'hosting (da decidere).
+
+ Primo quadro (26/09/2026): l'utente ha dato un'immagine
+ fissa (non una GIF, "non fa niente"): il Fenring sotto la
+ luna, media/fenrir-luna.webp (1127 x 1107). Regola nuova
+ dell'utente: "adatta i quadri alle figure, non
+ rimpicciolirle". I quadri ora accettano anche png/jpg/webp
+ (texture diretta, risoluzione piena) e prendono le
+ PROPORZIONI della figura; il lato lungo resta quello di
+ size (1,5 m), quindi il primo quadro e' ~1,5 x 1,47 m.
+ Quadro alzato a 2,15 m e leggio LE ORIGINI spostato di lato
+ (u 2,65) perche' ne copriva la parte bassa.
+
+ Quadri 2, 3 e 4 (26/09/2026): i tre della sezione 2, dati
+ dall'utente come immagini ferme (WebP non animati,
+ verificato): media/sviluppo-scheletro.webp (629 x 902),
+ sviluppo-trenta.webp (479 x 772), sviluppo-aswid.webp
+ (629 x 902). Cornici verticali alte 1,5 m, alzate a 2,2 m
+ perche' il leggio LO SVILUPPO non copra quella centrale.
+ Nota: in Desktop\gif ci sono GIF che sembrano gli originali
+ animati (skeleton march/metal, trenta wave/trentecheers,
+ aswidchallenge): proposte all'utente, non usate.
+
+ GIF al posto delle immagini (26/09/2026, mappa dell'utente):
+ cornice 2 skeleton metal, 3 trenta wave, 4 aswidchallenge,
+ 5 brute (fondo, sinistra), 6 skeleton march (fondo,
+ destra). Copiate in media/ (le webp di 2-4 tolte).
+ PROBLEMA: 243 MB in tutto (skeleton march 122, brute 77,
+ aswid 19, skeleton metal 18, trenta 6): troppo per il web.
+ Il decodificatore ora legge un fotogramma alla volta
+ (decompressFrame mentre gira), ma la pagina sta comunque a
+ ~570 MB di memoria. Prima di pubblicare vanno convertite
+ (video WebM/MP4 con ffmpeg, oppure GIF ridotte): decisione
+ chiesta all'utente. ffmpeg non e' installato sul PC.
+
+ GIF -> VIDEO (26/09/2026, scelta dell'utente: opzione 1).
+ Scaricato ffmpeg 9.0.2 essentials (gyan.dev, 115 MB zip) in
+ tools/ffmpeg (fuori dal sito). Le cinque GIF convertite in
+ MP4 H.264 (crf 26, yuv420p, faststart, risoluzione
+ originale): skeleton-metal 0,7 MB, trenta-wave 0,3, aswid-
+ challenge 1,1, brute 0,9, skeleton-march 6,3 = ~9 MB contro
+ 243. GIF tolte da media/. I quadri accettano .mp4/.webm:
+ video muto in loop come VideoTexture, cornice sulle
+ proporzioni del video. Memoria della pagina: 29 MB (era
+ ~570). Corretto anche "versione NaN" nel tabellone (solo i
+ numeri si formattano).
+ Riconvertire: tools/ffmpeg/.../ffmpeg.exe -i x.gif -movflags
+ +faststart -an -c:v libx264 -pix_fmt yuv420p -crf 26
+ -preset slow -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" x.mp4
+
+ Stanza di Angri COMPLETATA (26/09/2026):
+   - VERIFICATO dall'alto: la minimappa combacia con gli
+     edifici (strade fra gli isolati, piazza al centro)
+   - la luce verde della stanza tingeva il plastico: nuovo
+     room.json "colorLight" (moltiplica la luce del colore
+     della stanza; Angri 0,2) + luce da vetrina del tavolo a
+     12. Ora il plastico ha i colori veri (edifici chiari,
+     strade grigie, verde, piazza, chiese coi tetti rossi)
+   - pannello con E (5 paragrafi, crediti dei dati) e
+     cabinato ANGRI PS1 / COMING SOON: provati

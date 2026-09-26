@@ -1,0 +1,117 @@
+{
+  "id": "races-of-valheim",
+  "status": "open",
+  "title": { "it": "Races of Valheim", "en": "Races of Valheim" },
+  "tagline": { "it": "Mod per Valheim: dieci razze giocabili", "en": "Valheim mod: ten playable races" },
+  "color": "#e0a040",
+  "size": { "w": 10, "d": 14, "h": 4 },
+
+  "theme": "wood",
+  "titleSign": false,
+  "packRoom": "vampaladin",
+  "pack": "media/vampaladin.json",
+
+  "_sezioni": "Pianta dell'utente: 1 = u 0..3.35 / v -5..-1.7, 2 = u 3.35..10.3 / v -5..-1.7, 3 = u 10.3..14 (tutta la larghezza), 4 = u 0..10.3 / v 2.6..5, corridoio al centro.",
+
+  "exhibits": [
+    { "type": "beams", "every": 2.8 },
+
+    { "type": "railing", "from": [0.2, -1.7], "to": [10.3, -1.7], "gaps": [[0.5, 2.3], [4.6, 6.6]] },
+    { "type": "railing", "from": [3.35, -4.9], "to": [3.35, -1.7] },
+    { "type": "railing", "from": [10.3, -4.9], "to": [10.3, -1.7] },
+    { "type": "tape", "from": [0.4, 2.6], "to": [10.3, 2.6] },
+    { "type": "tape", "from": [10.3, 2.6], "to": [10.3, 4.9] },
+
+    { "type": "board", "at": [1.6, -1.7], "rot": -90, "y": 2.75, "size": [2.2, 0.5],
+      "lines": [{ "text": { "it": "LE ORIGINI", "en": "THE ORIGINS" }, "size": 0.5, "bold": true, "color": "#e0a040" }] },
+    { "type": "board", "at": [5.8, -1.7], "rot": -90, "y": 2.75, "size": [2.4, 0.5],
+      "lines": [{ "text": { "it": "LO SVILUPPO", "en": "THE DEVELOPMENT" }, "size": 0.5, "bold": true, "color": "#e0a040" }] },
+    { "type": "board", "at": [5.2, 2.6], "rot": 90, "y": 2.75, "size": [2.2, 0.5],
+      "lines": [{ "text": { "it": "IL FUTURO", "en": "THE FUTURE" }, "size": 0.5, "bold": true, "color": "#e0a040" }] },
+
+    { "type": "painting", "at": [1.55, -4.9], "rot": -90, "size": [1.5, 1.0], "y": 2.15,
+      "title": { "it": "Fenrir Curse", "en": "Fenrir Curse" }, "src": "media/fenrir-luna.webp" },
+    { "type": "lectern", "at": [2.65, -3.0], "rot": -90, "panel": "rov-origini", "color": "#e0a040",
+      "title": { "it": "LE ORIGINI", "en": "THE ORIGINS" },
+      "sub": { "it": "Fenrir Curse", "en": "Fenrir Curse" } },
+
+    { "type": "painting", "at": [4.7, -4.9], "rot": -90, "size": [1.5, 1.0], "y": 2.2,
+      "title": { "it": "Sviluppo 1", "en": "Development 1" }, "src": "media/skeleton-metal.mp4" },
+    { "type": "painting", "at": [6.85, -4.9], "rot": -90, "size": [1.5, 1.0], "y": 2.2,
+      "title": { "it": "Sviluppo 2", "en": "Development 2" }, "src": "media/trenta-wave.mp4" },
+    { "type": "painting", "at": [9.0, -4.9], "rot": -90, "size": [1.5, 1.0], "y": 2.2,
+      "title": { "it": "Sviluppo 3", "en": "Development 3" }, "src": "media/aswid-challenge.mp4" },
+    { "type": "lectern", "at": [6.85, -3.0], "rot": -90, "panel": "rov-sviluppo", "color": "#e0a040",
+      "title": { "it": "LO SVILUPPO", "en": "THE DEVELOPMENT" },
+      "sub": { "it": "il reverse engineering", "en": "reverse engineering" } },
+
+    { "type": "board", "at": [13.9, 0.45], "y": 2.1, "size": [3.4, 1.8], "color": "#e0a040",
+      "lines": [
+        { "text": "RACES OF VALHEIM", "size": 0.17, "bold": true, "color": "#e0a040" },
+        { "text": { "it": "download su Thunderstore", "en": "downloads on Thunderstore" }, "size": 0.1, "color": "#c8a878" },
+        { "text": "{}", "size": 0.3, "bold": true, "color": "#f4e4c4", "data": { "src": "media/downloads.json", "live": "api/downloads", "key": "downloads" } },
+        { "text": { "it": "versione {}", "en": "version {}" }, "size": 0.08, "color": "#806850", "data": { "src": "media/downloads.json", "live": "api/downloads", "key": "version" } }
+      ] },
+    { "type": "painting", "at": [13.9, -3.2], "size": [1.6, 1.1], "y": 2.0,
+      "title": { "it": "Races of Valheim", "en": "Races of Valheim" }, "src": "media/brute.mp4" },
+    { "type": "painting", "at": [13.9, 3.6], "size": [1.6, 1.1], "y": 2.0,
+      "title": { "it": "Races of Valheim", "en": "Races of Valheim" }, "src": "media/skeleton-march.mp4" },
+
+    { "type": "board", "at": [5.2, 4.9], "rot": 90, "y": 1.8, "size": [3.4, 1.9], "color": "#e0a040",
+      "lines": [
+        { "text": { "it": "IL FUTURO", "en": "THE FUTURE" }, "size": 0.16, "bold": true, "color": "#e0a040" },
+        { "text": { "it": "in allestimento", "en": "coming soon" }, "size": 0.09, "color": "#ff3bd4" },
+        { "text": { "it": "Una nuova quest con i Batrider e la strega Nargilien.", "en": "A new quest with the Batriders and the witch Nargilien." }, "size": 0.085, "color": "#f4e4c4" },
+        { "text": { "it": "E, più avanti, un gioco stand-alone.", "en": "And, further on, a stand-alone game." }, "size": 0.085, "color": "#f4e4c4" }
+      ] },
+    { "type": "prop", "name": "Casse", "at": [2.2, 4.3], "rot": 80 },
+    { "type": "prop", "name": "Cassa", "at": [8.4, 4.4], "rot": 100 },
+
+    { "type": "prop", "name": "Torcia", "at": [5.77, -4.9], "rot": -90, "light": true },
+    { "type": "prop", "name": "Torcia", "at": [7.93, -4.9], "rot": -90, "light": true },
+    { "type": "prop", "name": "Torcia", "at": [0.35, -3.4], "rot": 180, "light": 6 },
+    { "type": "prop", "name": "Torcia", "at": [13.9, -1.55], "light": true },
+    { "type": "prop", "name": "Torcia", "at": [13.9, 2.45], "light": true },
+    { "type": "prop", "name": "Torcia", "at": [3.5, 4.9], "rot": 90, "light": 6 },
+    { "type": "prop", "name": "Torcia", "at": [7.2, 4.9], "rot": 90, "light": 6 },
+    { "type": "prop", "name": "Barili", "at": [13.2, -4.2], "rot": -45 },
+    { "type": "prop", "name": "Barile", "at": [13.3, 4.4] }
+  ],
+
+  "panels": {
+    "rov-origini": {
+      "title": { "it": "Le origini: Fenrir Curse", "en": "The origins: Fenrir Curse" },
+      "body": [
+        {
+          "it": "Tutto è cominciato con Fenrir Curse, pubblicata su Thunderstore il 19 luglio 2026, cinque giorni prima di Races of Valheim. È l'umile origine dell'intero progetto: invece di dieci razze offriva una cosa sola, una maledizione.",
+          "en": "It all began with Fenrir Curse, released on Thunderstore on 19 July 2026, five days before Races of Valheim. It is the humble origin of the whole project: instead of ten races it offered a single thing, a curse."
+        },
+        {
+          "it": "Sopravvivi all'attacco di un lupo, di un Fenring, di un Ulv o di un Cultista e ti porti dentro la bestia: di notte puoi trasformarti in un Fenring, veloce, immune alle cadute e armato di artigli, e in lupo quando vuoi. La Strega della palude può rafforzare la maledizione; una pozione purificatrice, preparata al calderone, la cura.",
+          "en": "Survive the attack of a Wolf, a Fenring, an Ulv or a Cultist and you carry the beast inside: at night you can turn into a Fenring, fast, immune to falls and armed with claws, and into a wolf whenever you like. The Bog Witch can empower the curse; a Purifying Potion, brewed at the cauldron, cures it."
+        },
+        {
+          "it": "Da quel codice è nata la razza Fenrir, e intorno a lei le altre nove: Aswid, Draugh, Dvergar, Furling, Skadi, Skeleton, Sverm, Trenta e Trol.",
+          "en": "The Fenrir race grew out of that code, and the other nine around it: Aswid, Draugh, Dvergar, Furling, Skadi, Skeleton, Sverm, Trenta and Trol."
+        }
+      ]
+    },
+    "rov-sviluppo": {
+      "title": { "it": "Lo sviluppo: dentro Valheim", "en": "The development: inside Valheim" },
+      "body": [
+        {
+          "it": "Valheim non ha un'interfaccia ufficiale per i mod: per costruire dieci razze bisognava prima capire come funziona il gioco da dentro. Il suo codice (assembly_valheim.dll) è stato letto con Mono.Cecil, istruzione per istruzione, per conoscere le firme e il significato reale di ogni metodo prima di toccarlo.",
+          "en": "Valheim has no official modding interface: to build ten races you first had to understand how the game works from the inside. Its code (assembly_valheim.dll) was read with Mono.Cecil, instruction by instruction, to learn the real signatures and meaning of every method before touching it."
+        },
+        {
+          "it": "È così che si scoprono cose che nessuna documentazione dice: per esempio che la distanza a cui un mostro smette di inseguirti si misura dal suo punto di nascita, o chi può colpire chi quando una creatura è addomesticata. Le modifiche si agganciano al gioco con Harmony, sopra BepInEx e Jotunn.",
+          "en": "That's how you find out things no documentation says: for example that the distance at which a monster gives up chasing you is measured from its spawn point, or who can hit whom when a creature is tamed. The changes hook into the game with Harmony, on top of BepInEx and Jotunn."
+        },
+        {
+          "it": "Le creature base delle razze sono quelle di Valheim: si copia il modello di un mostro e gli si tolgono i componenti che lo rendono vivo. Anche questo va capito a fondo: un mostro svuotato di corsa lasciava dietro di sé un pezzo di creatura ancora vivo, e il martello smetteva di funzionare per ogni costruzione del gioco. La mod usa solo materiale del gioco, nessun file esterno.",
+          "en": "The races' base creatures are Valheim's own: you copy a monster's model and strip away the components that make it alive. This too has to be understood deeply: a monster emptied in a hurry left a still-living piece of creature behind, and the hammer stopped working for every building in the game. The mod uses only the game's own material, no external files."
+        }
+      ]
+    }
+  }
+}

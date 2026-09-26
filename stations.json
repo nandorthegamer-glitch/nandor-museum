@@ -1,0 +1,9 @@
+{
+  "_nota": "Ordine degli attracchi lungo la spina: 0 = primo segmento lato ovest, 1 = primo segmento lato est, 2 = secondo segmento ovest, ... null = attracco libero.",
+  "docks": [
+    "races-of-valheim", "vampaladin",
+    "styx-diner", "survive-and-conquer",
+    "angri", "rts-prototype",
+    null, "arkitekt"
+  ]
+}

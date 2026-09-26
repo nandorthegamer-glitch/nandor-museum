@@ -1,0 +1,84 @@
+{
+  "id": "vampaladin",
+  "status": "open",
+  "title": { "it": "Vampaladin", "en": "Vampaladin" },
+  "tagline": { "it": "Azione gotica in stile Blood Omen", "en": "Gothic action in the style of Blood Omen" },
+  "color": "#c03040",
+  "size": { "w": 10, "d": 12, "h": 4 },
+
+  "theme": "dungeon",
+  "textures": { "wall": "media/muro_pietra.png", "floor": "media/pietra_grigia.png" },
+  "pack": "media/vampaladin.json",
+  "music": "media/musica-kanym.mp3",
+  "musicVolume": 0.45,
+
+  "exhibits": [
+    { "type": "beams", "every": 2.5 },
+
+    { "type": "prop", "name": "CerchioRituale", "at": [6, 0], "noCollide": true },
+    { "type": "prop", "name": "Candele del cerchio", "at": [6, 0], "noCollide": true, "light": 4 },
+    { "type": "pedestal", "at": [6, 0], "size": [1.1, 0.6, 1.1] },
+    { "type": "model", "mesh": "statua", "at": [6, 0], "y": 0.68, "look": "stone", "glow": { "occhi": "#ff2030" }, "noCollide": true },
+    { "type": "prop", "name": "Candelabro", "at": [6, -2.4], "light": 5 },
+    { "type": "prop", "name": "Candelabro", "at": [6, 2.4], "light": 5 },
+
+    { "type": "lectern", "at": [3.3, 0], "panel": "vampaladin",
+      "title": { "it": "VAMPALADIN", "en": "VAMPALADIN" },
+      "sub": { "it": "le caratteristiche del gioco", "en": "what the game is about" } },
+
+    { "type": "arcade", "at": [11.3, 0], "game": "games/vampaladin/index.html",
+      "title": { "it": "VAMPALADIN", "en": "VAMPALADIN" },
+      "screen": [
+        { "text": "PLAY", "size": 0.42, "bold": true, "color": "#ff3bd4" }
+      ] },
+    { "type": "prop", "name": "Torcia", "at": [11.9, -2.2], "light": 6 },
+    { "type": "prop", "name": "Torcia", "at": [11.9, 2.2], "light": 6 },
+
+    { "type": "prop", "name": "Torcia", "at": [2.5, -4.9], "rot": -90, "light": true },
+    { "type": "prop", "name": "Torcia", "at": [6, -4.9], "rot": -90, "light": true },
+    { "type": "prop", "name": "Torcia", "at": [9.5, -4.9], "rot": -90, "light": true },
+    { "type": "prop", "name": "Torcia", "at": [2.5, 4.9], "rot": 90, "light": true },
+    { "type": "prop", "name": "Torcia", "at": [6, 4.9], "rot": 90, "light": true },
+    { "type": "prop", "name": "Torcia", "at": [9.5, 4.9], "rot": 90, "light": true },
+
+    { "type": "prop", "name": "Libreria", "at": [1.4, -4.71], "rot": -90 },
+    { "type": "prop", "name": "Rastrelliera", "at": [1.4, 4.73], "rot": 90 },
+    { "type": "prop", "name": "Baule", "at": [4.2, 4.55], "rot": 90 },
+    { "type": "prop", "name": "Sacchi", "at": [8.2, -4.55], "rot": -80 },
+    { "type": "prop", "name": "Calderone", "at": [8.3, 4.1], "light": 3 },
+    { "type": "prop", "name": "Barili", "at": [10.6, -4.1], "rot": -45 },
+    { "type": "prop", "name": "Casse", "at": [10.3, 4.2], "rot": 30 }
+  ],
+
+  "panels": {
+    "vampaladin": {
+      "title": { "it": "Vampaladin", "en": "Vampaladin" },
+      "body": [
+        {
+          "it": "Un gioco d'azione gotico con la telecamera fissa dall'alto, come Blood Omen: Legacy of Kain e il primo Diablo, e la grafica di una PlayStation 1. Si gioca con gamepad o con mouse e tastiera, con controlli ispirati a V Rising.",
+          "en": "A gothic action game with a fixed top-down camera, like Blood Omen: Legacy of Kain and the first Diablo, drawn like a PlayStation 1 game. It plays with a gamepad or mouse and keyboard, with controls inspired by V Rising."
+        },
+        {
+          "it": "Il protagonista è un crociato diventato vampiro: capelli biondi, pelle cadaverica, occhi rossi e una claymore a forma di crocifisso. Combatte con una combo di tre fendenti che affondano di mezzo passo, e con uno scatto in nebbia per schivare.",
+          "en": "The hero is a crusader turned vampire: blond hair, corpse-pale skin, red eyes and a claymore shaped like a crucifix. He fights with a three-slash combo that lunges half a step, and a mist dash to dodge."
+        },
+        {
+          "it": "Il sangue è tutto: si beve dai nemici caduti e dai topi per curarsi, e quello in eccesso diventa esperienza che alza la vita massima. Tutto si legge in un calice sullo schermo, niente barre.",
+          "en": "Blood is everything: you drink it from fallen enemies and rats to heal, and what's left over becomes experience that raises your maximum health. It all shows in a chalice on screen, no bars."
+        },
+        {
+          "it": "Nel dungeon, disegnato a mano e poi generato, un culto e un covo di mercenari: ladri col pugnale, balestrieri e uomini d'arme con lo scudo che parano i colpi frontali. Si comincia risvegliandosi in un sarcofago.",
+          "en": "The dungeon, drawn by hand and then generated, holds a cult and a mercenary den: dagger thieves, crossbowmen and men-at-arms whose shields parry blows from the front. It opens with you waking up in a sarcophagus."
+        },
+        {
+          "it": "Modelli, animazioni, dungeon e arredi sono generati da codice in Unity: la statua, le torce e i mobili di questa stanza sono stati estratti direttamente dai file del progetto.",
+          "en": "Models, animations, the dungeon and its furniture are generated by code in Unity: the statue, the torches and the furniture in this room were pulled straight out of the project files."
+        },
+        {
+          "it": "Musiche di Kanym.",
+          "en": "Music by Kanym."
+        }
+      ]
+    }
+  }
+}

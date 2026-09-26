@@ -1,0 +1,9 @@
+{
+  "id": "arkitekt",
+  "status": "closed",
+  "title": { "it": "arKITekt", "en": "arKITekt" },
+  "tagline": { "it": "Costruttore di dungeon PF2e su Discord", "en": "PF2e dungeon builder on Discord" },
+  "color": "#a070f0",
+  "size": { "w": 10, "d": 12, "h": 4 },
+  "exhibits": []
+}

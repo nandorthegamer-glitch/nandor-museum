@@ -1,0 +1,9 @@
+{
+  "id": "rts-prototype",
+  "status": "closed",
+  "title": { "it": "RTS Prototype", "en": "RTS Prototype" },
+  "tagline": { "it": "Strategia cooperativa PvE da comandante", "en": "Co-op PvE commander strategy" },
+  "color": "#50a0f0",
+  "size": { "w": 10, "d": 12, "h": 4 },
+  "exhibits": []
+}

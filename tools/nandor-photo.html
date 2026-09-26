@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <title>Foto del modello di Nandor</title>
+  <style>html, body { margin: 0; background: #0e0a18; color: #d6ffe8; font-family: Consolas, monospace; }</style>
+</head>
+<body>
+  <!-- Strumento di sviluppo, non fa parte del museo: fotografa la scansione grezza di
+       3D Snap con le sue texture originali. In console: await shoot(55, 'photo-left.jpg')
+       (angolo positivo = verso la guancia SINISTRA di Nandor). Salva in public/nandor/. -->
+  <script type="module">
+    import * as THREE from 'three';
+    import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+    import { TO_LOCAL } from '../src/nandor.js';
+
+    const W = 720, H = 900;
+    const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+    renderer.setSize(W, H);
+    renderer.setPixelRatio(1);
+    document.body.appendChild(renderer.domElement);
+
+    const scene = new THREE.Scene();
+    // sfondo: sfumatura viola scura come i pannelli del museo
+    const bg = document.createElement('canvas');
+    bg.width = 4; bg.height = 256;
+    const g = bg.getContext('2d');
+    const grad = g.createLinearGradient(0, 0, 0, 256);
+    grad.addColorStop(0, '#1c1230'); grad.addColorStop(1, '#07050c');
+    g.fillStyle = grad; g.fillRect(0, 0, 4, 256);
+    scene.background = new THREE.CanvasTexture(bg);
+    scene.background.colorSpace = THREE.SRGBColorSpace;
+
+    scene.add(new THREE.HemisphereLight(0xffffff, 0x302840, 1.2));
+    const key = new THREE.DirectionalLight(0xffffff, 2.2);
+    scene.add(key);
+    const rim = new THREE.DirectionalLight(0x3dff8a, 1.0);
+    scene.add(rim);
+
+    const load = (f) => { const t = new THREE.TextureLoader().load('/assets-src/nandor/' + f); return t; };
+    const map = load('Texture_diffuseColor.png');
+    map.colorSpace = THREE.SRGBColorSpace;
+    const mat = new THREE.MeshStandardMaterial({
+      map, normalMap: load('Texture_normal.png'), aoMap: load('Texture_occlusion.png'),
+      roughness: 0.75, metalness: 0, side: THREE.DoubleSide,
+    });
+
+    const camera = new THREE.PerspectiveCamera(28, W / H, 0.1, 100);
+    let ready;
+    const loaded = new Promise((r) => { ready = r; });
+    new OBJLoader().load('/assets-src/nandor/face.obj', (obj) => {
+      let geo = null;
+      obj.traverse((m) => { if (m.isMesh) geo = m.geometry; });
+      geo.applyMatrix4(TO_LOCAL);
+      geo.computeBoundingBox();
+      scene.add(new THREE.Mesh(geo, mat));
+      ready(geo.boundingBox);
+    });
+
+    // angolo in gradi attorno all'asse verticale: 0 = di fronte, + = guancia sinistra
+    window.shoot = async (deg, name) => {
+      await loaded;
+      await new Promise((r) => setTimeout(r, 600)); // texture caricate
+      const a = THREE.MathUtils.degToRad(deg);
+      const target = new THREE.Vector3(0.1, 0.12, 0);
+      const d = 7.2;
+      camera.position.set(Math.sin(a) * d, 0.5, Math.cos(a) * d).add(target);
+      camera.lookAt(target);
+      key.position.copy(camera.position).add(new THREE.Vector3(0, 3, 0));
+      rim.position.set(-Math.sin(a) * 5, 2, -Math.cos(a) * 3);
+      renderer.render(scene, camera);
+      const url = renderer.domElement.toDataURL('image/jpeg', 0.9);
+      const res = await fetch('/__save?name=' + name, { method: 'POST', body: url });
+      return res.text();
+    };
+    window.bbox = () => loaded;
+  </script>
+</body>
+</html>
