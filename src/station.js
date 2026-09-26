@@ -40,6 +40,8 @@ const TXT = {
   module: { it: 'MODULO', en: 'MODULE' },
   nandorSub: { it: 'come è nato il suo volto', en: 'how his face was made' },
   pressE: { it: '[E] LEGGI', en: '[E] READ' },
+  works: { it: 'IN COSTRUZIONE', en: 'UNDER CONSTRUCTION' },
+  worksSub: { it: 'la stazione cresce: nuovi moduli in arrivo', en: 'the station is growing: new modules on the way' },
 };
 
 // getViewer() -> { x, z } del visitatore (Nandor si gira verso di lui)
@@ -75,6 +77,7 @@ export function buildStation(stations, rooms, { onCreate = () => {}, getViewer }
     zs -= L;
   }
   D.spineEnd(ctx, zs, SPINE, SPINE_H);
+  buildWorks(ctx, zs);
 
   // fondo della spina: finestrone sullo spazio (per ora un pannello scuro)
   wall(ctx, 'x', zs, -SPINE, SPINE, SPINE_H);
@@ -93,6 +96,99 @@ export function buildStation(stations, rooms, { onCreate = () => {}, getViewer }
     update: (t) => ctx.updaters.forEach((f) => f(t)),
     spawn: { x: 0, z: 8.8, yaw: 0 },
   };
+}
+
+// Fondo della spina: transenna "in costruzione" e un robot umanoide che lava per terra.
+// zs = muro di fondo. Il robot va avanti e indietro davanti alla transenna passando il mocio.
+function buildWorks(ctx, zs) {
+  const zb = zs + 1.6; // transenna
+  const hazard = ctx.mats.hazard;
+  const post = new THREE.MeshLambertMaterial({ color: 0x3a3d44 });
+  const x0 = SPINE - WALL_T / 2 - 0.25;
+  for (const sx of [-1, 1]) {
+    const x = sx * x0;
+    box(ctx.group, x - 0.05, x + 0.05, 0, 1.75, zb - 0.05, zb + 0.05, post);
+    box(ctx.group, x - 0.07, x + 0.07, 0, 0.04, zb - 0.3, zb + 0.3, post); // piede
+    // lampeggiante ambra in cima al paletto
+    const lamp = new THREE.MeshBasicMaterial({ color: 0xffa020 });
+    box(ctx.group, x - 0.06, x + 0.06, 1.75, 1.87, zb - 0.06, zb + 0.06, lamp);
+    const l = D.light(ctx, x, 1.95, zb + 0.4, 0xffa020, 3, 5);
+    const phase = sx > 0 ? Math.PI : 0;
+    ctx.updaters.push((t) => {
+      const on = Math.sin(t * 5 + phase) > 0;
+      lamp.color.setHex(on ? 0xffa020 : 0x301800);
+      l.intensity = on ? 3 : 0;
+    });
+  }
+  for (const y of [0.45, 0.9]) box(ctx.group, -x0, x0, y, y + 0.16, zb - 0.03, zb + 0.03, hazard);
+  sign(ctx, {
+    w: 2.1, h: 0.5, x: 0, y: 1.42, z: zb + 0.04, face: FACE.S,
+    draw: (g, W, H) => drawLines(g, W, H, [
+      { text: T(TXT.works), size: 0.42, bold: true, color: '#ffb020' },
+      { text: T(TXT.worksSub), size: 0.2, color: '#f4e4c4' },
+    ], { bg: '#141008', border: '#ffb020' }),
+  });
+
+  // --- robot: scatole low-poly, ~1.75 m ---
+  const metal = new THREE.MeshLambertMaterial({ color: 0xc8ccd4 });
+  const dark = new THREE.MeshLambertMaterial({ color: 0x2c3038 });
+  const eye = new THREE.MeshBasicMaterial({ color: D.NEON_G });
+  const wood = new THREE.MeshLambertMaterial({ color: 0x9a7a4a });
+  const rag = new THREE.MeshLambertMaterial({ color: 0xd8d4c4 });
+  const zr = zs + 3.0;
+  D.light(ctx, 0, SPINE_H - 0.3, zr + 0.6, 0xfff0d8, 4, 5); // luce di servizio sul robot
+  const bot = new THREE.Group();
+  bot.position.set(0, 0, zr);
+  ctx.group.add(bot);
+  const legs = [-1, 1].map((sx) => {
+    const hip = new THREE.Group();
+    hip.position.set(sx * 0.13, 0.92, 0);
+    bot.add(hip);
+    box(hip, -0.07, 0.07, -0.46, 0, -0.07, 0.07, dark);       // coscia
+    box(hip, -0.06, 0.06, -0.88, -0.46, -0.06, 0.06, metal);  // stinco
+    box(hip, -0.08, 0.08, -0.92, -0.86, -0.08, 0.16, dark);   // piede
+    return hip;
+  });
+  const body = new THREE.Group();
+  body.position.y = 0.92;
+  bot.add(body);
+  box(body, -0.2, 0.2, 0, 0.12, -0.12, 0.12, dark);           // bacino
+  box(body, -0.25, 0.25, 0.14, 0.62, -0.15, 0.15, metal);     // busto
+  box(body, -0.12, 0.12, 0.38, 0.46, 0.15, 0.17, eye);        // spia sul petto
+  const head = new THREE.Group();
+  head.position.y = 0.66;
+  body.add(head);
+  box(head, -0.03, 0.03, 0, 0.06, -0.03, 0.03, dark);         // collo
+  box(head, -0.12, 0.12, 0.06, 0.28, -0.12, 0.12, metal);
+  box(head, -0.1, 0.1, 0.15, 0.2, 0.12, 0.13, eye);           // visore
+  box(head, -0.01, 0.01, 0.28, 0.4, -0.01, 0.01, dark);       // antenna
+  // braccia + mocio: un unico rig che ruota davanti al busto
+  const rig = new THREE.Group();
+  rig.position.y = 0.55;
+  body.add(rig);
+  for (const sx of [-1, 1]) {
+    box(rig, sx * 0.25, sx * 0.25 + sx * 0.08, -0.25, 0.05, -0.05, 0.05, metal); // braccio
+    box(rig, sx * 0.29 - 0.04, sx * 0.29 + 0.04, -0.3, -0.24, -0.05, 0.3, dark); // avambraccio in avanti
+  }
+  const mop = new THREE.Group();
+  mop.position.set(0, -0.27, 0.3); // tra le mani
+  rig.add(mop);
+  box(mop, -0.02, 0.02, -1.25, 0.35, -0.02, 0.02, wood);
+  mop.rotation.x = 0.55; // manico inclinato: la testa tocca terra davanti al robot
+  box(mop, -0.22, 0.22, -1.3, -1.22, -0.08, 0.08, rag);
+  // colpisce solo la zona del robot: non si passa attraverso
+  ctx.colliders.push({ minX: -SPINE, maxX: SPINE, minZ: zs, maxZ: zr + 0.95 });
+  ctx.updaters.push((t) => {
+    const sweep = Math.sin(t * 2.2);
+    rig.rotation.y = sweep * 0.55;
+    body.rotation.y = sweep * 0.12;
+    bot.position.x = Math.sin(t * 0.35) * 0.7; // passo laterale lento
+    const step = Math.sin(t * 0.35 * 2 * 3);
+    legs[0].rotation.x = step * 0.12;
+    legs[1].rotation.x = -step * 0.12;
+    body.position.y = 0.92 + Math.abs(step) * 0.01;
+    head.rotation.x = 0.25 + Math.sin(t * 1.1) * 0.05; // guarda per terra
+  });
 }
 
 function sizeOf(room) {
