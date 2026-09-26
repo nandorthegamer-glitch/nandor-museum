@@ -60,7 +60,12 @@ const game = new GameCabinet({
   onExit: () => { if (!player.locked) overlay.classList.remove('hidden'); },
 });
 interact.onAction = (item) => { if (item.action === 'game') game.play(item); };
-interact.onLinksClosed = () => { if (!player.locked) overlay.classList.remove('hidden'); };
+// chiuso un pannello coi link: si torna subito al gioco ricatturando il mouse (il tasto E
+// conta come gesto dell'utente); solo se il browser rifiuta compare il menu
+interact.onLinksClosed = () => {
+  if (player.locked || player.dragMode) return;
+  Promise.resolve(renderer.domElement.requestPointerLock()).catch(() => overlay.classList.remove('hidden'));
+};
 
 // --- schermata iniziale: le bandiere scelgono la lingua ed entrano ---
 const overlay = document.getElementById('overlay');
