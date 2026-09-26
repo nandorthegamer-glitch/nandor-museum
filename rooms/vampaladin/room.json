@@ -18,7 +18,7 @@
     { "type": "prop", "name": "CerchioRituale", "at": [6, 0], "noCollide": true },
     { "type": "prop", "name": "Candele del cerchio", "at": [6, 0], "noCollide": true, "light": 4 },
     { "type": "pedestal", "at": [6, 0], "size": [1.1, 0.6, 1.1] },
-    { "type": "model", "mesh": "statua", "at": [6, 0], "y": 0.68, "look": "stone", "glow": { "occhi": "#ff2030" }, "noCollide": true },
+    { "type": "model", "mesh": "statua", "at": [6, 0], "y": 0.68, "look": "stone", "glow": { "occhi": "#ff2030" }, "noCollide": true, "stare": 10 },
     { "type": "prop", "name": "Candelabro", "at": [6, -2.4], "light": 5 },
     { "type": "prop", "name": "Candelabro", "at": [6, 2.4], "light": 5 },
 

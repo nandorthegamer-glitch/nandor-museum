@@ -48,6 +48,39 @@ function place(ctx, frame, ex) {
   return g;
 }
 
+// Easter egg: se il visitatore fissa il modello per piu' di "seconds" secondi, il modello
+// si gira lentamente a guardarlo; appena il visitatore distoglie lo sguardo e il modello
+// esce dall'inquadratura, torna com'era, senza che nessuno lo veda muoversi.
+function stare(ctx, g, seconds) {
+  const base = g.rotation.y;
+  const fwd = new THREE.Vector3(), to = new THREE.Vector3(), eye = new THREE.Vector3();
+  let gaze = 0, last = null;
+  ctx.updaters.push((t) => {
+    const dt = last === null ? 0 : Math.min(t - last, 0.1);
+    last = t;
+    const cam = ctx.getViewer?.()?.camera;
+    if (!cam) return;
+    cam.getWorldPosition(eye);
+    cam.getWorldDirection(fwd);
+    to.set(g.position.x, g.position.y + 1.2, g.position.z).sub(eye);
+    const dist = to.length();
+    const angle = fwd.angleTo(to.normalize());
+    if (dist < 14 && angle < THREE.MathUtils.degToRad(14)) {
+      gaze += dt;
+      if (gaze > seconds) {
+        // verso il visitatore: il -z locale del modello punta all'occhio
+        const want = Math.atan2(-(eye.x - g.position.x), -(eye.z - g.position.z));
+        let d = want - g.rotation.y;
+        d = Math.atan2(Math.sin(d), Math.cos(d));
+        g.rotation.y += Math.sign(d) * Math.min(Math.abs(d), 0.7 * dt); // lento: inquietante
+      }
+    } else {
+      gaze = 0;
+      if (angle > THREE.MathUtils.degToRad(65)) g.rotation.y = base; // fuori vista: torna normale
+    }
+  });
+}
+
 // collisione dal riquadro del modello, ruotato e spostato come il gruppo
 function colliderFrom(ctx, g, min, max, shrink = 0.05) {
   const s = g.scale.x;
@@ -125,6 +158,7 @@ const TYPES = {
   model(ctx, ex, frame, pack, room) {
     const g = place(ctx, frame, ex);
     if (ex.scaleY) g.scale.y = (ex.scale || 1) * ex.scaleY;
+    if (ex.stare) stare(ctx, g, ex.stare);
     const mapMat = ex.map ? texturedMat(room.id, ex.map) : null;
     pack.then((p) => {
       for (const name of [].concat(ex.mesh)) {
