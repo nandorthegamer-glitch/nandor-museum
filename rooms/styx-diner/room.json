@@ -24,7 +24,7 @@
     { "type": "vitrine", "at": [5, -2.4], "size": [1.6, 2.58, 2.1], "base": 0.3 },
     { "type": "model", "mesh": "crociato", "at": [5, -2.4], "y": 0.31, "noCollide": true },
 
-    { "type": "lectern", "at": [1.5, 1.8], "panel": "styx", "color": "#f0d060",
+    { "type": "lectern", "at": [1.6, 0], "panel": "styx", "color": "#f0d060",
       "title": { "it": "STYX DINER", "en": "STYX DINER" },
       "sub": { "it": "il gioco", "en": "the game" } },
     { "type": "lectern", "at": [3.1, 2.6], "panel": "styx-vecchio", "color": "#b890e0",

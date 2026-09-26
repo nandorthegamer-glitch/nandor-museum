@@ -93,10 +93,25 @@ const UI = {
     en: 'WASD to move, mouse to look, Shift to run, M audio, Esc to leave',
   },
   list: { it: 'VISTA ELENCO (presto)', en: 'LIST VIEW (soon)' },
+  sens: { it: 'SENSIBILITÀ MOUSE', en: 'MOUSE SENSITIVITY' },
 };
+// sensibilita' del mouse: cursore nel menu, ricordata dal browser
+const sensInput = document.getElementById('sens');
+const sensVal = document.getElementById('sens-val');
+const setSens = (v) => {
+  player.sens = v;
+  sensInput.value = v;
+  sensVal.textContent = v.toFixed(2);
+};
+try { const v = parseFloat(localStorage.getItem('nandor-sens')); if (v > 0) setSens(v); } catch {}
+sensInput.addEventListener('input', () => {
+  setSens(parseFloat(sensInput.value));
+  try { localStorage.setItem('nandor-sens', sensInput.value); } catch {}
+});
 onLang(() => {
   document.getElementById('hint').textContent = T(UI.hint);
   document.getElementById('list').textContent = T(UI.list);
+  document.getElementById('sens-label').textContent = T(UI.sens);
 });
 for (const b of overlay.querySelectorAll('[data-lang]')) {
   b.addEventListener('click', () => {

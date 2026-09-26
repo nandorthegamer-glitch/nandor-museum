@@ -5,7 +5,7 @@ const EYE = 1.6;
 const RADIUS = 0.3;
 const WALK = 4.4;
 const RUN = 7.7;
-const SENS = 0.0022;
+const SENS = 0.0012; // per 1 di sensibilita' (regolabile nel menu, player.sens)
 const STEP = 0.1; // passo massimo per sotto-passo: non si attraversano muri da 0,2 m
 
 export class Player {
@@ -17,6 +17,7 @@ export class Player {
     this.yaw = 0;
     this.pitch = 0;
     this.keys = new Set();
+    this.sens = 1;
 
     addEventListener('keydown', (e) => this.keys.add(e.code));
     addEventListener('keyup', (e) => this.keys.delete(e.code));
@@ -27,8 +28,10 @@ export class Player {
     this.cinematic = false; // true mentre un cabinato muove la telecamera
     addEventListener('mousemove', (e) => {
       if (!this.locked || this.frozen || (this.dragMode && !(e.buttons & 1))) return;
-      this.yaw -= e.movementX * SENS;
-      this.pitch -= e.movementY * SENS;
+      // alcuni browser, col Pointer Lock, mandano ogni tanto un salto enorme: si scarta
+      if (Math.abs(e.movementX) > 250 || Math.abs(e.movementY) > 250) return;
+      this.yaw -= e.movementX * SENS * this.sens;
+      this.pitch -= e.movementY * SENS * this.sens;
       this.pitch = Math.max(-1.45, Math.min(1.45, this.pitch));
     });
   }
