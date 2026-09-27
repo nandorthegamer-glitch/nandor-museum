@@ -30,6 +30,12 @@
       font-family: "Consolas", "Courier New", monospace; overscroll-behavior: none;
       -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent; }
     body { position: fixed; inset: 0; } /* Safari: niente rimbalzo ne' scorrimento della pagina */
+    /* ritorno al museo (dal cabinato o da un pannello coi link): un clic ricattura il mouse */
+    #resume { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; cursor: pointer;
+      background: rgba(3, 6, 10, 0.35); }
+    #resume.on { display: flex; }
+    #resume span { color: #3dff8a; border: 1px solid #3dff8a; background: rgba(14, 10, 24, 0.85); padding: 12px 22px;
+      letter-spacing: 0.15em; }
     #ioshint { display: none; max-width: 420px; color: #3dff8a; font-size: 13px; line-height: 1.5;
       border: 1px solid #3dff8a; padding: 10px 14px; }
     #ioshint.on { display: block; }
@@ -117,6 +123,7 @@
   <div id="subs"></div>
   <div id="touch"><button class="menu">II</button><button class="fs"></button><div class="stick left"><i></i></div><div class="stick right"><i></i></div></div>
   <div id="panel"></div>
+  <div id="resume"><span></span></div>
   <div id="overlay" class="loading">
     <h1>NANDOR ORBITAL MUSEUM</h1>
     <div id="loading"><div class="bar"><i></i></div><span>CARICAMENTO · LOADING</span></div>

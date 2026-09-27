@@ -76,15 +76,28 @@ Door.events.onMove = (d, dist, opening) => audio.door(dist, opening);
 // cabinati: al ritorno dal gioco si mostra il menu (serve un clic per ricatturare il mouse)
 const game = new GameCabinet({
   player, camera, audio,
-  onExit: () => { if (!player.locked) overlay.classList.remove('hidden'); },
+  onExit: () => resume(),
 });
 interact.onAction = (item) => { if (item.action === 'game') game.play(item); };
 // chiuso un pannello coi link: si torna subito al gioco ricatturando il mouse (il tasto E
 // conta come gesto dell'utente); solo se il browser rifiuta compare il menu
-interact.onLinksClosed = () => {
-  if (player.locked || player.dragMode) return;
-  Promise.resolve(renderer.domElement.requestPointerLock()).catch(() => overlay.classList.remove('hidden'));
-};
+interact.onLinksClosed = () => resume();
+
+// Si torna al museo ricatturando il mouse; se il browser vuole un gesto (per esempio a fine
+// livello del cabinato), compare "clicca per continuare" invece del menu della lingua.
+const resumeEl = document.getElementById('resume');
+const RESUME = { it: 'CLICCA PER CONTINUARE', en: 'CLICK TO CONTINUE' };
+function resume() {
+  if (player.locked || player.dragMode || player.touchMode) return;
+  const ask = () => { resumeEl.firstChild.textContent = T(RESUME); resumeEl.classList.add('on'); };
+  Promise.resolve(renderer.domElement.requestPointerLock()).catch(ask);
+}
+resumeEl.addEventListener('click', () => {
+  resumeEl.classList.remove('on');
+  Promise.resolve(renderer.domElement.requestPointerLock()).catch(() => {
+    player.dragMode = true; // dove il Pointer Lock non c'e' si guarda trascinando
+  });
+});
 
 // --- schermata iniziale: le bandiere scelgono la lingua ed entrano ---
 const overlay = document.getElementById('overlay');
@@ -158,6 +171,7 @@ if (isTouch && iosBrowser && !standalone && !canFullscreen()) {
   onLang(() => { iosHint.textContent = T(IOS_HINT); });
 }
 document.addEventListener('pointerlockchange', () => {
+  if (player.locked) resumeEl.classList.remove('on');
   if (game.active) return; // entrando nel cabinato il mouse si libera: niente menu
   if (interact.openId) return; // pannello coi link aperto: il mouse serve per cliccarli
   overlay.classList.toggle('hidden', player.locked);
