@@ -16,6 +16,8 @@ const UI = {
     en: 'The level has not been exported yet: in Unity, Vampaladin > 5 - Export for the museum (WebGL).',
   },
   exit: { it: 'ESC  esci', en: 'ESC  exit' },
+  full: { it: 'SCHERMO INTERO', en: 'FULL SCREEN' },
+  window: { it: 'FINESTRA', en: 'WINDOW' },
 };
 
 export class GameCabinet {
@@ -72,20 +74,48 @@ export class GameCabinet {
     const box = (this.box = document.createElement('div'));
     box.className = 'game-box';
     const frame = (this.frame = document.createElement('iframe'));
-    frame.src = `${url}?lang=${getLang()}`;
+    // i permessi prima dell'indirizzo: valgono dal caricamento
     frame.allow = 'autoplay; fullscreen; gamepad';
+    frame.allowFullscreen = true;
+    frame.src = `${url}?lang=${getLang()}`;
     const exit = document.createElement('button');
     exit.className = 'game-exit';
     exit.textContent = T(UI.exit);
     exit.addEventListener('click', () => this.leave());
-    box.append(frame, exit);
+    // schermo intero chiesto dal museo, sul riquadro del gioco: il pulsante della pagina
+    // di Unity lo chiede da dentro l'iframe e Firefox lo rifiuta (errore che ferma il gioco)
+    const full = document.createElement('button');
+    full.className = 'game-exit game-full';
+    const label = () => { full.textContent = T(document.fullscreenElement ? UI.window : UI.full); };
+    label();
+    full.addEventListener('click', () => {
+      if (document.fullscreenElement) document.exitFullscreen?.();
+      else box.requestFullscreen?.().catch(() => {});
+      frame.focus();
+    });
+    this.onFs = label;
+    document.addEventListener('fullscreenchange', label);
+    box.append(frame, exit, full);
     document.body.append(box);
-    frame.addEventListener('load', () => frame.focus());
+    frame.addEventListener('load', () => {
+      frame.focus();
+      // la pagina di Unity ha il suo pulsante per lo schermo intero: nel museo lo nasconde
+      try {
+        const st = frame.contentDocument.createElement('style');
+        st.textContent = '#unity-footer { display: none !important; }'
+          // e il gioco riempie tutto il riquadro invece di restare a 1280x720 al centro
+          + '#unity-container { position: fixed !important; inset: 0 !important; transform: none !important; width: 100% !important; height: 100% !important; }'
+          + '#unity-fullscreen-container, #unity-canvas { width: 100% !important; height: 100% !important; }';
+        frame.contentDocument.head.append(st);
+      } catch {}
+    });
   }
 
   async leave() {
     if (!this.playing) return;
     this.playing = false;
+    if (document.fullscreenElement) document.exitFullscreen?.().catch(() => {});
+    document.removeEventListener('fullscreenchange', this.onFs);
     this.box.remove(); // chiude anche il gioco: niente Unity che gira di nascosto
     this.box = this.frame = null;
     await this.blink();
