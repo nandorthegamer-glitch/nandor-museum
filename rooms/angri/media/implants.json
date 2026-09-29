@@ -1,0 +1,112 @@
+[
+ {
+  "id": "eyes",
+  "name": "Municipal Optics",
+  "slot": 0,
+  "secret": false,
+  "levels": [
+   "Environment Analysis: highlights everything you can use.",
+   "X-Ray: walls become a suggestion."
+  ],
+  "desc": "Prescribed for a mild myopia of -0.75. The Council's optician was feeling generous, and the budget had to be spent before December."
+ },
+ {
+  "id": "ears",
+  "name": "Council Acoustics",
+  "slot": 1,
+  "secret": false,
+  "levels": [
+   "Eavesdrop on conversations from a distance.",
+   "Hear footsteps behind walls, marked on the terminal."
+  ],
+  "desc": "Originally meant to follow council meetings from the back row. Now picks up gossip from three bars away. The gossip is mostly about you."
+ },
+ {
+  "id": "spine",
+  "name": "Titanium Spine",
+  "slot": 2,
+  "secret": false,
+  "levels": [
+   "Lift crates, bins and the occasional scooter.",
+   "Lift very heavy objects straight into the inventory."
+  ],
+  "desc": "Replaces the lumbar vertebrae Alfonso had been complaining about since 2071. Installed under Council Resolution 451/2089, 'Measures for the ergonomic wellbeing of municipal staff'. Posture now comparable to a ministry building."
+ },
+ {
+  "id": "arms",
+  "name": "Hydraulic Forearms",
+  "slot": 3,
+  "secret": false,
+  "levels": [
+   "A punch that stuns. Politely.",
+   "Break through doors and thin walls."
+  ],
+  "desc": "Standard issue for the municipal demolition squad, which was never founded. The forearms were already paid for."
+ },
+ {
+  "id": "legs",
+  "name": "Silent Pistons",
+  "slot": 4,
+  "secret": false,
+  "levels": [
+   "Silent footsteps.",
+   "High jump: balconies, roofs, the tower's terrace."
+  ],
+  "desc": "Muffled to the legal night-time noise limit of 35 decibels. The jump was a clerical error nobody wanted to correct."
+ },
+ {
+  "id": "skin",
+  "name": "Subdermal Plating",
+  "slot": 5,
+  "secret": false,
+  "levels": [
+   "Armour under the skin: take twice the punishment.",
+   "Camouflage for a few seconds."
+  ],
+  "desc": "Tested on the traffic wardens of Scafati. Keeps the rain out. The camouflage works best against people who were not looking anyway."
+ },
+ {
+  "id": "liver",
+  "name": "Municipal Liver",
+  "slot": 6,
+  "secret": true,
+  "levels": [
+   "Drink without getting drunk: accept every round in Via di Mezzo.",
+   "Alcohol now heals you."
+  ],
+  "desc": "Filters up to forty litres of limoncello an hour. Fitted under the Council's programme for public officials at after-hours social engagements. Hangovers: none. Excuses to leave the bar: also none."
+ },
+ {
+  "id": "heart",
+  "name": "Overclocked Heart",
+  "slot": 7,
+  "secret": true,
+  "levels": [
+   "Run faster.",
+   "A short burst of speed."
+  ],
+  "desc": "Page 94 of the contract, in a font size the Council describes as 'discreet'. The warranty covers everything except cardiac events."
+ },
+ {
+  "id": "toe",
+  "name": "Lockpick Toe",
+  "slot": 8,
+  "secret": true,
+  "levels": [
+   "Pick locks with your foot while your hands are busy.",
+   "Pick them twice as fast."
+  ],
+  "desc": "A master key in the big toe. The Council insists it was designed for 'hands-free access to municipal archives'. Nobody asked why the archives are locked."
+ },
+ {
+  "id": "stomach",
+  "name": "Compactor Stomach",
+  "slot": 9,
+  "secret": true,
+  "levels": [
+   "Swallow objects: more inventory space.",
+   "Even more space. Evidence included."
+  ],
+  "desc": "Derived from the Riciclangri collection trucks. Compresses anything to the size of a stock cube. Do not swallow the phone while the Mayor is calling."
+ }
+]

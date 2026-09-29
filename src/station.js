@@ -13,6 +13,7 @@ import { buildNandor } from './nandor.js';
 import { buildExhibits } from './exhibits.js';
 import { mediaUrl } from './media.js';
 import { makeWoodTextures } from './textures.js';
+import { asciiRoomMats } from './ascii.js';
 
 const ATRIUM = 6;       // mezzo lato dell'atrio
 const ATRIUM_H = 5;
@@ -396,7 +397,8 @@ function buildDock(ctx, side, zc, room, n) {
   const s = sizeOf(room);
   const x2 = side * (SPINE + LOCK + s.d);
   const za = zc - s.w / 2, zb = zc + s.w / 2;
-  const theme = room.theme === 'dungeon' ? dungeonMats(room) : room.theme === 'wood' ? woodMats() : null;
+  const theme = room.theme === 'dungeon' ? dungeonMats(room) : room.theme === 'wood' ? woodMats()
+    : room.theme === 'ascii' ? asciiRoomMats() : null;
   if (room.shell === 'unity') {
     // stanza fatta dal set del gioco (pareti, pavimento, soffitto nel pacchetto): il museo
     // costruisce solo la parete d'ingresso col portellone; il resto sono i reperti
@@ -421,7 +423,8 @@ function buildDock(ctx, side, zc, room, n) {
   new Door(ctx, 'z', x1, zc);
   if (theme) {
     // dungeon e locanda: niente neon ne' costolature; luce calda di fondo, il resto lo fanno le torce
-    D.light(ctx, (x1 + x2) / 2, s.h - 0.6, zc, 0xff9a60, 5, 16);
+    const tl = room.theme === 'ascii' ? [0x9affc8, 7] : [0xff9a60, 5]; // Angrii City: notte verdina
+    D.light(ctx, (x1 + x2) / 2, s.h - 0.6, zc, tl[0], tl[1], 16);
   } else {
     D.doorFrame(ctx, 'z', x1, zc, side);
     D.room(ctx, x1, x2, za, zb, s.h, color, room.colorLight ?? 1);

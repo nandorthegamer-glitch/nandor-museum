@@ -1,54 +1,110 @@
 {
   "id": "angri",
   "status": "open",
-  "title": { "it": "Angri PS1", "en": "Angri PS1" },
-  "tagline": { "it": "Una città vera ricostruita da dati cartografici aperti", "en": "A real town rebuilt from open map data" },
-  "color": "#40e080",
+  "title": { "it": "Angrii City", "en": "Angrii City" },
+  "tagline": { "it": "Immersive sim a caratteri ASCII, in una notte ad Angri", "en": "An ASCII immersive sim, one night in Angri" },
+  "color": "#3dff8a",
   "size": { "w": 10, "d": 12, "h": 4 },
-
-  "pack": "media/angri.json",
-  "colorLight": 0.2,
+  "theme": "ascii",
 
   "exhibits": [
-    { "type": "table", "at": [6, 0], "size": [3.2, 0.85, 3.2], "color": "#40e080", "light": 12 },
-    { "type": "model", "mesh": ["terreno", "edifici", "alberi"], "at": [6, 0], "y": 0.86,
-      "scale": 0.00375, "scaleY": 2, "map": "media/minimappa.png", "noCollide": true },
+    { "type": "bench", "at": [4.8, -4.25], "rot": -90 },
+    { "type": "streetlamp", "at": [3.1, -4.6], "rot": -90, "light": 5 },
+    { "type": "lectern", "at": [6.7, -3.2], "panel": "angrii-grafica", "color": "#3dff8a",
+      "title": { "it": "LA GRAFICA", "en": "THE LOOK" },
+      "sub": { "it": "caratteri e occhi", "en": "characters and eyes" } },
 
-    { "type": "lectern", "at": [3.1, 0], "panel": "angri", "color": "#40e080",
-      "title": { "it": "ANGRI PS1", "en": "ANGRI PS1" },
-      "sub": { "it": "come è fatta la mappa", "en": "how the map was made" } },
+    { "type": "augscreen", "at": [6.0, 4.93], "rot": 90, "y": 1.95, "size": [2.8, 1.575] },
+    { "type": "board", "at": [3.3, 4.93], "rot": 90, "y": 1.95, "size": [1.6, 1.3], "color": "#3dff8a", "bg": "#040806",
+      "lines": [
+        { "text": { "it": "UNA PORTA, TANTE STRADE", "en": "ONE DOOR, MANY WAYS" }, "size": 0.12, "bold": true, "color": "#3dff8a" },
+        { "text": { "it": "la chiave del custode", "en": "the caretaker's key" }, "size": 0.085, "color": "#cfe8d8" },
+        { "text": { "it": "l'alluce scassinatore", "en": "the lockpick toe" }, "size": 0.085, "color": "#cfe8d8" },
+        { "text": { "it": "gli avambracci idraulici", "en": "the hydraulic forearms" }, "size": 0.085, "color": "#cfe8d8" },
+        { "text": { "it": "un caffè al tecnico giusto", "en": "a coffee for the right technician" }, "size": 0.085, "color": "#cfe8d8" },
+        { "text": { "it": "ispirato a Deus Ex", "en": "inspired by Deus Ex" }, "size": 0.075, "color": "#ff3bd4" }
+      ] },
+    { "type": "board", "at": [8.7, 4.93], "rot": 90, "y": 1.95, "size": [1.6, 1.3], "color": "#3dff8a", "bg": "#040806",
+      "lines": [
+        { "text": { "it": "OMBRA O FERRO", "en": "SHADOW OR STEEL" }, "size": 0.12, "bold": true, "color": "#3dff8a" },
+        { "text": { "it": "stealth e azione valgono uguale", "en": "stealth and action count the same" }, "size": 0.085, "color": "#cfe8d8" },
+        { "text": { "it": "nessuna delle due è punita", "en": "neither one is punished" }, "size": 0.085, "color": "#cfe8d8" },
+        { "text": { "it": "10 lavoretti · 4 finali", "en": "10 side jobs · 4 endings" }, "size": 0.085, "color": "#ffd060" },
+        { "text": { "it": "una sola notte", "en": "a single night" }, "size": 0.085, "color": "#ffd060" }
+      ] },
+    { "type": "lectern", "at": [4.6, 3.3], "panel": "angrii-deusex", "color": "#3dff8a",
+      "title": { "it": "COME DEUS EX", "en": "LIKE DEUS EX" },
+      "sub": { "it": "il gameplay", "en": "the gameplay" } },
 
-    { "type": "arcade", "at": [11.3, 0], "color": "#40e080",
-      "title": { "it": "ANGRI PS1", "en": "ANGRI PS1" },
+    { "type": "arcade", "at": [11.3, 0], "color": "#3dff8a",
+      "title": { "it": "ANGRII CITY", "en": "ANGRII CITY" },
+      "game": "games/angrii-city/index.html",
       "screen": [
-        { "text": "ANGRI PS1", "size": 0.2, "bold": true, "color": "#40e080" },
-        { "text": "COMING SOON", "size": 0.16, "bold": true, "color": "#ff3bd4" }
-      ] }
+        { "text": "PLAY", "size": 0.3, "bold": true, "color": "#3dff8a" }
+      ] },
+    { "type": "alfonso", "at": [11.58, 1.05], "src": "media/alfonso.json" },
+    { "type": "lectern", "at": [9.3, 2.7], "panel": "angrii-tono", "color": "#3dff8a",
+      "title": { "it": "ALFONSO", "en": "ALFONSO" },
+      "sub": { "it": "comico e regionale", "en": "comic and local" } }
   ],
 
   "panels": {
-    "angri": {
-      "title": { "it": "Angri PS1: la mappa", "en": "Angri PS1: the map" },
+    "angrii-deusex": {
+      "title": { "it": "Il gameplay: come Deus Ex", "en": "The gameplay: like Deus Ex" },
       "body": [
         {
-          "it": "Il plastico sul tavolo è Angri, in provincia di Salerno: un quadrato di 800 metri di lato attorno a piazza Annunziata, con tutte le strade, gli edifici, le chiese e i giardini. Non è disegnato a mano: è generato dai dati cartografici aperti.",
-          "en": "The model on the table is Angri, near Salerno: a square 800 metres across around Piazza Annunziata, with every street, building, church and garden. It isn't drawn by hand: it is generated from open map data."
+          "it": "Angrii City prende la formula di Deus Ex (2000): ogni obiettivo si raggiunge in più modi. Una porta chiusa si apre con la chiave, scassinandola con l'alluce, sfondandola con gli avambracci idraulici, oppure portando un caffè al tecnico che ha la chiave.",
+          "en": "Angrii City takes the Deus Ex (2000) formula: every objective can be reached in several ways. A locked door opens with the key, by picking it with your big toe, by smashing it with the hydraulic forearms, or by bringing a coffee to the technician who has the key."
         },
         {
-          "it": "Le sagome degli edifici e il terreno vengono dalla cartografia della Regione Campania, le altezze dalle stime di Microsoft, i nomi delle strade e le piazze da OpenStreetMap. Un importatore scritto dentro Unity legge questi file e costruisce la città da solo: niente Blender.",
-          "en": "Building footprints and the terrain come from the Campania Region's maps, heights from Microsoft's estimates, street names and squares from OpenStreetMap. An importer written inside Unity reads these files and builds the town by itself: no Blender."
+          "it": "Stealth e azione valgono uguale e nessuna delle due viene punita: si può attraversare la notte al buio, stordendo le guardie e nascondendo i corpi, oppure a pugni, pistola e fucile a pompa. Anche i nemici ragionano così: sentono i rumori, vedono meglio alla luce, danno l'allarme ai compagni.",
+          "en": "Stealth and action count the same and neither is punished: you can cross the night in the dark, stunning guards and hiding the bodies, or with fists, pistol and pump shotgun. The enemies think that way too: they hear noises, see better in the light, raise the alarm with their mates."
         },
         {
-          "it": "Dove i dati non bastavano sono servite le foto: le facciate delle chiese vengono da Wikimedia Commons, e il campanile di Santa Caterina e il Castello Doria sono stati ricostruiti dalle loro proporzioni. Lampioni, panchine, fontane e alberi sono piazzati seguendo la mappa dei suoli.",
-          "en": "Where the data fell short, photos filled in: the church façades come from Wikimedia Commons, and Santa Caterina's bell tower and Castello Doria were rebuilt from their proportions. Street lamps, benches, fountains and trees are placed following the ground map."
+          "it": "Gli impianti cibernetici sono i potenziamenti, come le augmentations di Deus Ex: il sindaco li sblocca a distanza con dei moduli e si installano in un menu con Alfonso nella posa dell'uomo vitruviano, quello sullo schermo qui accanto. Ognuno ha due livelli e quattro organi sono segreti: si scoprono giocando.",
+          "en": "The cybernetic implants are the power-ups, like Deus Ex's augmentations: the Mayor unlocks them remotely with modules, and you install them in a menu with Alfonso posed as the Vitruvian man, the one on the screen here. Each has two levels, and four organs are secret: you find them by playing."
         },
         {
-          "it": "Il tutto con la grafica di una PlayStation 1. E la città si può anche esplorare a piedi.",
-          "en": "All of it drawn like a PlayStation 1 game. And the town can be explored on foot, too."
+          "it": "Tutto succede in una sola notte, in un piccolo pezzo di Angri attorno al castello Doria, ma denso: bar, garage, un deposito e un passaggio segreto da esplorare, dieci lavoretti secondari e quattro finali diversi per il traditore.",
+          "en": "It all happens in a single night, in a small piece of Angri around Castello Doria, but a dense one: bars, garages, a depot and a secret passage to explore, ten side jobs and four different endings for the traitor."
+        }
+      ]
+    },
+    "angrii-grafica": {
+      "title": { "it": "La grafica: una città di caratteri", "en": "The look: a town made of characters" },
+      "body": [
+        {
+          "it": "La città è la stessa Angri ricostruita dai dati cartografici aperti per Angri PS1, ma disegnata a caratteri. Ogni fotogramma viene diviso in celle piccole e ogni cella diventa una lettera scelta in base a quanta luce riceve, dal punto alla chiocciola. Sui bordi degli oggetti compaiono i tratti | - / \\.",
+          "en": "The town is the same Angri rebuilt from open map data for Angri PS1, but drawn in characters. Every frame is split into small cells and each cell becomes a letter picked by how much light it gets, from the dot to the at sign. The edges of things get the strokes | - / \\."
         },
         {
-          "it": "Dati: © OpenStreetMap contributors (ODbL); Regione Campania, CTR/DBT 2020 (CC BY 4.0); Microsoft Global ML Building Footprints (ODbL); facciate: GiovAngri e altri autori, Wikimedia Commons.",
-          "en": "Data: © OpenStreetMap contributors (ODbL); Campania Region, CTR/DBT 2020 (CC BY 4.0); Microsoft Global ML Building Footprints (ODbL); façades: GiovAngri and other authors, Wikimedia Commons."
+          "it": "L'idea viene da ASCII City. L'effetto è uno shader scritto a mano in Unity e i caratteri sono disegnati nel codice, senza font di sistema. La panchina e il lampione di questa stanza sono disegnati allo stesso modo.",
+          "en": "The idea comes from ASCII City. The effect is a shader written by hand in Unity, and the characters are drawn in code, with no system font. The bench and the street lamp in this room are drawn the same way."
+        },
+        {
+          "it": "Tanti caratteri piccoli e luminosi su fondo nero possono stancare gli occhi, e c'è chi è sensibile al contrasto forte. Per questo nelle opzioni si può cambiare la dimensione dei caratteri (da 4 a 12 pixel), mettere uno sfondo grigio dietro le lettere e ridurre il contrasto. Il tasto F2 cambia la dimensione al volo, mentre si gioca.",
+          "en": "Lots of small bright characters on black can tire the eyes, and some people are sensitive to strong contrast. That's why the options let you change the character size (4 to 12 pixels), put a grey background behind the letters and lower the contrast. The F2 key changes the size on the fly, while you play."
+        }
+      ]
+    },
+    "angrii-tono": {
+      "title": { "it": "Il tono: comico e regionale", "en": "The tone: comic and local" },
+      "body": [
+        {
+          "it": "Deus Ex è serio e internazionale: cospirazioni mondiali, agenzie segrete, New York, Hong Kong, Parigi. Angrii City fa apposta il contrario: la cospirazione è in municipio, l'agente segreto lavora per il sindaco e la città è Angri.",
+          "en": "Deus Ex is serious and international: world conspiracies, secret agencies, New York, Hong Kong, Paris. Angrii City does the opposite on purpose: the conspiracy is in the town hall, the secret agent works for the Mayor and the city is Angri."
+        },
+        {
+          "it": "Alfonso Notari, nome in codice FonzoTor, è diventato un cyborg senza leggere il contratto del Comune: sei milioni di euro di impianti militari, accesi a distanza dal sindaco. Prima aveva solo il mal di schiena e un po' di miopia.",
+          "en": "Alfonso Notari, codename FonzoTor, became a cyborg without reading the Council's contract: six million euros of military implants, switched on remotely by the Mayor. Before that he only had back pain and a touch of myopia."
+        },
+        {
+          "it": "Le battute stanno nelle descrizioni degli impianti, nei dialoghi e nei personaggi: Pasquale del chiosco, il vecchio che gioca a scopa, i tifosi della Paganese e della Scafatese, il camion dei rifiuti che consegna la droga. Il gioco è in inglese, ma i nomi restano campani.",
+          "en": "The jokes live in the implant descriptions, in the dialogue and in the characters: Pasquale at the kiosk, the old man playing scopa, the Paganese and Scafatese fans, the garbage truck that delivers the drugs. The game is in English, but the names stay Campanian."
+        },
+        {
+          "it": "Il risultato è un noir con battute: la trama tiene e i nemici sparano davvero, ma la città è raccontata con l'ironia di chi ci vive.",
+          "en": "The result is a noir with jokes: the plot holds together and the enemies really shoot, but the town is told with the irony of someone who lives there."
         }
       ]
     }

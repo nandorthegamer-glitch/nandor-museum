@@ -13,6 +13,7 @@ import { mediaUrl } from './media.js';
 import { loadPack } from './models.js';
 import { CRISP } from './psx.js';
 import gifuct from 'gifuct-js'; // CommonJS: Vite ne espone solo il default
+import { ANGRII_TYPES } from './angrii.js';
 
 const { parseGIF, decompressFrame } = gifuct;
 
@@ -35,7 +36,7 @@ export function buildExhibits(ctx, room, frame) {
 }
 
 // posizione e rotazione nel mondo; il gruppo restituito guarda "verso la porta" se rot = 0
-function place(ctx, frame, ex) {
+export function place(ctx, frame, ex) {
   const [u, v] = ex.at || [0, 0];
   const g = new THREE.Group();
   g.position.set(frame.x1 + frame.side * u, ex.y || 0, frame.zc + frame.side * v);
@@ -82,7 +83,7 @@ function stare(ctx, g, seconds) {
 }
 
 // collisione dal riquadro del modello, ruotato e spostato come il gruppo
-function colliderFrom(ctx, g, min, max, shrink = 0.05) {
+export function colliderFrom(ctx, g, min, max, shrink = 0.05) {
   const s = g.scale.x;
   const c = Math.cos(g.rotation.y), sn = Math.sin(g.rotation.y);
   let x0 = Infinity, x1 = -Infinity, z0 = Infinity, z1 = -Infinity;
@@ -557,3 +558,6 @@ const TYPES = {
     g.add(glow);
   },
 };
+
+// reperti di Angrii City (src/angrii.js)
+Object.assign(TYPES, ANGRII_TYPES);
