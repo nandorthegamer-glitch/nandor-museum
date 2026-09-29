@@ -36,7 +36,7 @@ export class GameCabinet {
 
     addEventListener('message', (e) => {
       const d = e.data;
-      if (!d || d.source !== 'vampaladin' || !this.playing) return;
+      if (!d || !['vampaladin', 'angrii'].includes(d.source) || !this.playing) return; // giochi col ponte del museo
       if (d.type === 'ready') this.frame?.focus();
       if (d.type === 'done' || d.type === 'exit') this.leave();
     });
